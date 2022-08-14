@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="status" [ngClass]="status"></div>
+
+    <div class="content">
+        <div class="header">
+            <h4>{{ativacao.nome}}</h4>
+            <i *ngIf="ativacao.organizze" nz-icon nzType="dollar" nzTheme="twotone" nzTwotoneColor="#52c41a"></i>
+        </div>
+        <small *ngIf="ativacao.referencia">{{ativacao.referencia}}</small>
+        <small style="overflow-wrap: anywhere;">{{ativacao.id}}</small>
+        <small>Cidade: {{ativacao.cidade}}/{{ativacao.estado}}</small>
+        <div class="data-expiracao">
+            <small>
+                Data de expiração: {{ativacao.expiracao | date: 'dd/MM/yyyy'}}
+                ({{ativacao.quantidadeDiasParaExpirar}} dias)
+            </small>
+            <p [ngClass]="status">
+                {{ativacao.status | status}}
+            </p>
+        </div>
+    </div>
+</div>

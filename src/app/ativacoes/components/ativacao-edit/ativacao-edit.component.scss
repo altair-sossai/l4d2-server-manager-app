@@ -1,0 +1,55 @@
+small {
+    display: block;
+}
+
+.bold {
+    font-weight: 500;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+}
+
+.liberacao {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    gap: 5px;
+    align-items: center;
+
+    label {
+        white-space: nowrap;
+    }
+
+    button {
+        font-size: 13px;
+        padding: 4px 6px;
+    }
+}
+
+.referencia {
+    display: block;
+    margin-top: 15px;
+}
+
+.organizze {
+    margin-top: 15px;
+}
+
+.detalhes {
+    margin-top: 15px;
+}
+
+.expirado,
+.vitalicio {
+    font-weight: bold;
+}
+
+.expirado {
+    color: #ff0000;
+}
+
+.vitalicio {
+    color: green;
+}

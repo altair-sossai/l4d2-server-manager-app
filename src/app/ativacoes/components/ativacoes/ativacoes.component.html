@@ -1,0 +1,55 @@
+<div class="container">
+    <div class="filtros">
+        <form nz-form>
+            <nz-form-item>
+                <nz-form-control>
+                    <nz-input-group nzSearch nzSize="small" [nzAddOnAfter]="searchButton">
+                        <input type="text" nz-input placeholder="Buscar..." name="query" (keyup.enter)="search()"
+                            [(ngModel)]="queryCommand.query" autocomplete="off" />
+                    </nz-input-group>
+                    <ng-template #searchButton>
+                        <button nz-button nzType="primary" nzSize="small" nzSearch (click)="search()">
+                            <i nz-icon nzType="search"></i>
+                        </button>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <nz-select nzPlaceHolder="Selecione os status" [(ngModel)]="queryCommand.status" nzMode="tags"
+                        name="status" (ngModelChange)="search()" nzSize="small" [nzAllowClear]="true">
+                        <nz-option *ngFor="let status of StatusValues" [nzLabel]="StatusDescription[status]"
+                            [nzValue]="status">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <label nz-checkbox [(ngModel)]="queryCommand.exibirApenasOsNaoLancadoOrganizze"
+                        name="exibirApenasOsNaoLancadoOrganizze" (ngModelChange)="search()">
+                        Exibir apenas os não lançados no Organizze
+                    </label>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </div>
+    <div class="body">
+        <nz-skeleton [nzActive]="true" *ngIf="!ativacoes"></nz-skeleton>
+        <div class="empty" *ngIf="ativacoes && !ativacoes.length">
+            <nz-empty></nz-empty>
+        </div>
+        <div *ngIf="ativacoes && ativacoes.length">
+            <app-ativacao-item *ngFor="let ativacao of ativacoes" [ativacao]="ativacao" (click)="editar(ativacao)">
+            </app-ativacao-item>
+        </div>
+    </div>
+    <div class="footer">
+        <small>
+            <ng-container *ngIf="ativacoes">{{ativacoes.length}} registros</ng-container>
+        </small>
+        <button nz-button nzType="primary" (click)="autenticar()">
+            <i nz-icon nzType="lock" nzTheme="outline"></i>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+.container {
+    padding: 10px;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+
+    .filtros {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        nz-form-item {
+            margin: 0;
+        }
+    }
+
+    .body {
+        border: 1px solid rgb(219, 218, 218);
+        background: rgb(241, 241, 241);
+        overflow: auto;
+
+        nz-skeleton {
+            margin: 10px;
+        }
+
+        .empty {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        app-ativacao-item {
+            margin: 10px;
+            background-color: white;
+            display: block;
+            margin-bottom: 2px;
+        }
+    }
+
+    .footer {
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        small {
+            font-style: italic;
+        }
+    }
+}
