@@ -1,5 +1,5 @@
 import { registerLocaleData } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import pt from '@angular/common/locales/pt';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -27,9 +27,10 @@ import { AppComponent } from './app.component';
 import { AtivacaoEditComponent } from './ativacoes/components/ativacao-edit/ativacao-edit.component';
 import { AtivacaoItemComponent } from './ativacoes/components/ativacao-item/ativacao-item.component';
 import { AtivacoesComponent } from './ativacoes/components/ativacoes/ativacoes.component';
+import { CepPipe } from './ativacoes/pipes/cep.pipe';
 import { StatusPipe } from './ativacoes/pipes/status.pipe';
 import { LockedScreenComponent } from './auth/components/locked-screen/locked-screen.component';
-import { CepPipe } from './ativacoes/pipes/cep.pipe';
+import { AppHttpInterceptor } from './shared/http-interceptor';
 
 registerLocaleData(pt);
 
@@ -68,7 +69,10 @@ registerLocaleData(pt);
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
-  providers: [{ provide: NZ_I18N, useValue: pt_BR }],
+  providers: [
+    { provide: NZ_I18N, useValue: pt_BR },
+    { provide: HTTP_INTERCEPTORS, useClass: AppHttpInterceptor, multi: true, },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
