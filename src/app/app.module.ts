@@ -31,6 +31,8 @@ import { CepPipe } from './ativacoes/pipes/cep.pipe';
 import { StatusPipe } from './ativacoes/pipes/status.pipe';
 import { LockedScreenComponent } from './auth/components/locked-screen/locked-screen.component';
 import { AppHttpInterceptor } from './shared/http-interceptor';
+import { PortStatusPipe } from './virtual-machine/pipes/port-status.pipe';
+import { VirtualMachineStatusPipe } from './virtual-machine/pipes/virtual-machine-status.pipe';
 
 registerLocaleData(pt);
 
@@ -42,6 +44,8 @@ registerLocaleData(pt);
     AtivacoesComponent,
     LockedScreenComponent,
     AtivacaoEditComponent,
+    PortStatusPipe,
+    VirtualMachineStatusPipe,
     CepPipe
   ],
   imports: [
