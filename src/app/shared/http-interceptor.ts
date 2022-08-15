@@ -16,7 +16,6 @@ export class AppHttpInterceptor implements HttpInterceptor {
     private router: Router,
     private authService: AuthService,
     private message: NzMessageService) {
-
   }
 
   static pendingRequests = 0;
