@@ -25,10 +25,10 @@ export class LockedScreenComponent implements OnInit {
       return;
 
     this.authService.setToken(token);
-    this.ativacoes();
+    this.virtualMachine();
   }
 
-  ativacoes(): void {
-    this.router.navigate(['/ativacoes']);
+  virtualMachine(): void {
+    this.router.navigate(['/virtual-machine']);
   }
 }

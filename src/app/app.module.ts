@@ -24,13 +24,9 @@ import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AtivacaoEditComponent } from './ativacoes/components/ativacao-edit/ativacao-edit.component';
-import { AtivacaoItemComponent } from './ativacoes/components/ativacao-item/ativacao-item.component';
-import { AtivacoesComponent } from './ativacoes/components/ativacoes/ativacoes.component';
-import { CepPipe } from './ativacoes/pipes/cep.pipe';
-import { StatusPipe } from './ativacoes/pipes/status.pipe';
 import { LockedScreenComponent } from './auth/components/locked-screen/locked-screen.component';
 import { AppHttpInterceptor } from './shared/http-interceptor';
+import { VirtualMachineComponent } from './virtual-machine/components/virtual-machine/virtual-machine.component';
 import { PortStatusPipe } from './virtual-machine/pipes/port-status.pipe';
 import { VirtualMachineStatusPipe } from './virtual-machine/pipes/virtual-machine-status.pipe';
 
@@ -39,14 +35,10 @@ registerLocaleData(pt);
 @NgModule({
   declarations: [
     AppComponent,
-    AtivacaoItemComponent,
-    StatusPipe,
-    AtivacoesComponent,
     LockedScreenComponent,
-    AtivacaoEditComponent,
     PortStatusPipe,
     VirtualMachineStatusPipe,
-    CepPipe
+    VirtualMachineComponent
   ],
   imports: [
     BrowserModule,

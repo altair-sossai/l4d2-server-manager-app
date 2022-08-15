@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: "http://localhost:7094"
+  apiUrl: "https://l4d2-server-manager-api.azurewebsites.net"
 };
