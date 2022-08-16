@@ -3,7 +3,7 @@ h2 {
 }
 
 table {
-    margin-bottom: 15px;
+    margin: 15px 0;
     font-size: 13px;
 
     th {
@@ -16,8 +16,11 @@ table {
     display: flex;
     flex-wrap: wrap;
 
-    a,
     button {
         margin: 5px;
+    }
+
+    nz-badge {
+        margin: 5px 8px;
     }
 }
