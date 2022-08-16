@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Player } from 'src/app/player/player';
 import { PortStatus } from 'src/app/virtual-machine/enums/port-status.enum';
@@ -25,6 +26,7 @@ export class ServerComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private modalService: NzModalService,
+    private message: NzMessageService,
     private serverService: ServerService) {
   }
 
@@ -103,5 +105,17 @@ export class ServerComponent implements OnInit {
         });
       }
     });
+  }
+
+  public get connectCommand(): string {
+    return `connect ${this.server?.ipAddress}:${this.server?.port}`;
+  }
+
+  public get dedicatedCommand(): string {
+    return `mm_dedicated_force_servers ${this.server?.ipAddress}:${this.server?.port}`;
+  }
+
+  copied(): void {
+    this.message.info('Copiado para a área de transferência');
   }
 }

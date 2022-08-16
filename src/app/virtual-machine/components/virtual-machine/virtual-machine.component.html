@@ -2,7 +2,7 @@
 
 <nz-divider></nz-divider>
 
-<nz-skeleton [nzActive]="true" *ngIf="!virtualMachine || !ports"></nz-skeleton>
+<nz-skeleton [nzActive]="true" *ngIf="!virtualMachine"></nz-skeleton>
 
 <ng-container *ngIf="virtualMachine && virtualMachine.isOff">
     <p>
@@ -23,7 +23,7 @@
     </button>
 </ng-container>
 
-<ng-container *ngIf="virtualMachine && virtualMachine.isOn && ports">
+<ng-container *ngIf="virtualMachine && virtualMachine.isOn">
     A máquina virtual: <nz-tag nzColor="green"><b>LIGADA</b></nz-tag>
 
     <table>
@@ -34,7 +34,8 @@
     </table>
 
     <p>Escolha uma das portas abaixo:</p>
-    <div class="buttons">
+    <nz-skeleton [nzActive]="true" *ngIf="!ports"></nz-skeleton>
+    <div class="buttons" *ngIf="ports">
         <nz-badge *ngFor="let port of ports" [nzCount]="port.connectedPlayers">
             <a nz-button nzType="default" [routerLink]="['/server', port.portNumber]">
                 Porta {{port.portNumber}}

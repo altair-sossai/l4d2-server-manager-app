@@ -23,6 +23,8 @@ import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { NzTagModule } from 'ng-zorro-antd/tag';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { ClipboardModule } from 'ngx-clipboard';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -54,6 +56,7 @@ registerLocaleData(pt);
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ClipboardModule,
     NzResultModule,
     NzButtonModule,
     NzIconModule,
@@ -70,6 +73,7 @@ registerLocaleData(pt);
     NzCollapseModule,
     NzTagModule,
     NzBadgeModule,
+    NzToolTipModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000'

@@ -75,12 +75,18 @@
 
     <small>Conectar ao servidor:</small>
     <code *ngIf="server.isRunning">
-        <span>connect {{server.ipAddress}}:{{server.port}}</span>
+        <span>{{connectCommand}}</span>
+        <i nz-icon nzType="copy" nzTheme="outline" 
+            ngxClipboard [cbContent]="connectCommand" (cbOnSuccess)="copied()" 
+            nz-tooltip nzTooltipTitle="Clique para copiar"></i>
     </code>
 
     <small>Criar uma sala utilizando o servidor:</small>
     <code *ngIf="server.isRunning">
-        <span>mm_dedicated_force_servers {{server.ipAddress}}:{{server.port}}</span>
+        <span>{{dedicatedCommand}}</span>
+        <i nz-icon nzType="copy" nzTheme="outline" 
+            ngxClipboard [cbContent]="dedicatedCommand" (cbOnSuccess)="copied()" 
+            nz-tooltip nzTooltipTitle="Clique para copiar"></i>
     </code>
 
     <nz-divider></nz-divider>
