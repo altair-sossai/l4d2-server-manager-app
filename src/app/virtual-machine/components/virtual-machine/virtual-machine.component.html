@@ -26,7 +26,7 @@
 
     <nz-divider nzText="Portas disponíveis"></nz-divider>
     <p>Escolha uma das portas abaixo:</p>
-    <div *ngIf="virtualMachine?.isOn && ports" class="ports">
+    <div *ngIf="virtualMachine?.isOn && ports" class="buttons">
         <a nz-button nzType="default" *ngFor="let port of ports" [routerLink]="['/server', port]">
             Porta #{{port}}
         </a>
@@ -34,8 +34,14 @@
 
     <nz-divider></nz-divider>
 
-    <button nz-button nzType="primary" nzDanger (click)="powerOff()" [nzLoading]="loading">
-        <i nz-icon nzType="poweroff" nzTheme="outline"></i>
-        {{ loading ? 'Desligando...' : 'Desligar máquina virtual' }}
-    </button>
+    <div class="buttons">
+        <button nz-button nzType="primary" nzDanger (click)="powerOff()" [nzLoading]="loading">
+            <i nz-icon nzType="poweroff" nzTheme="outline"></i>
+            {{ loading ? 'Desligando...' : 'Desligar máquina virtual' }}
+        </button>
+
+        <button nz-button nzType="default" (click)="refresh()" [nzLoading]="loading">
+            <i nz-icon nzType="reload" nzTheme="outline"></i> Atualizar
+        </button>
+    </div>
 </ng-container>

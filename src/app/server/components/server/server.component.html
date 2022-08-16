@@ -94,6 +94,10 @@
             [nzLoading]="loading">
             <i nz-icon nzType="lock" nzTheme="outline"></i> Fechar porta
         </button>
+
+        <button nz-button nzType="default" (click)="refresh()" [nzLoading]="loading">
+            <i nz-icon nzType="reload" nzTheme="outline"></i> Atualizar
+        </button>
     </div>
 </ng-container>
 

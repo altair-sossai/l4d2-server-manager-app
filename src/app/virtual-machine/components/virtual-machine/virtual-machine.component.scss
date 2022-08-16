@@ -12,11 +12,12 @@ table {
     }
 }
 
-.ports {
+.buttons {
     display: flex;
     flex-wrap: wrap;
-    
-    a {
+
+    a,
+    button {
         margin: 5px;
     }
 }
