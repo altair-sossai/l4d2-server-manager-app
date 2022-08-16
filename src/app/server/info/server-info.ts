@@ -9,7 +9,7 @@ export interface ServerInfo {
     product: string | null;
     region: number;
     players: number;
-    max_players: number;
+    maxPlayers: number;
     bots: number;
     map: string | null;
     secure: boolean;

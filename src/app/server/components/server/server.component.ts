@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { Player } from 'src/app/player/player';
+import { PortStatus } from 'src/app/virtual-machine/enums/port-status.enum';
 import { ServerInfo } from '../../info/server-info';
 import { Server } from '../../server';
 import { ServerService } from '../../services/server.service';
@@ -16,9 +18,13 @@ export class ServerComponent implements OnInit {
   server?: Server;
   serverInfo?: ServerInfo;
   players?: Player[];
+  loading = false;
+
+  PortStatus = PortStatus;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
+    private modalService: NzModalService,
     private serverService: ServerService) {
   }
 
@@ -48,6 +54,58 @@ export class ServerComponent implements OnInit {
 
       this.serverService.info(this.server.ipAddress, this.port!).subscribe(serverInfo => this.serverInfo = serverInfo);
       this.serverService.players(this.server.ipAddress, this.port!).subscribe(players => this.players = players);
+    });
+  }
+
+  run(): void {
+    this.modalService.confirm({
+      nzTitle: 'Deseja realmente iniciar o servidor?',
+      nzOnOk: () => {
+        this.loading = true;
+        this.serverService.run(this.port!).subscribe(() => {
+          this.refresh();
+          this.loading = false;
+        });
+      }
+    });
+  }
+
+  stop(): void {
+    this.modalService.confirm({
+      nzTitle: 'Atenção, o servidor será desligado, deseja realmente continuar?',
+      nzOnOk: () => {
+        this.loading = true;
+        this.serverService.stop(this.port!).subscribe(() => {
+          this.refresh();
+          this.loading = false;
+        });
+      }
+    });
+  }
+
+  openPort(): void {
+    this.modalService.confirm({
+      nzTitle: 'Atenção, as portas do servidor serão abertas, deseja continuar?',
+      nzOnOk: () => {
+        this.loading = true;
+        this.serverService.openPort(this.port!, { ranges: '*' }).subscribe(() => {
+          this.refresh();
+          this.loading = false;
+        });
+      }
+    });
+  }
+
+  closePort(): void {
+    this.modalService.confirm({
+      nzTitle: 'Atenção, as portas do servidor serão fechadas, deseja continuar?',
+      nzOnOk: () => {
+        this.loading = true;
+        this.serverService.closePort(this.port!).subscribe(() => {
+          this.refresh();
+          this.loading = false;
+        });
+      }
     });
   }
 }
