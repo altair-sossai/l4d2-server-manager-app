@@ -1,5 +1,7 @@
 <h2>Porta #{{port}}</h2>
 
+<nz-divider></nz-divider>
+
 <nz-skeleton [nzActive]="true" *ngIf="!server"></nz-skeleton>
 
 <ng-container *ngIf="server && !server.isRunning">
@@ -79,8 +81,8 @@
             <i nz-icon nzType="poweroff" nzTheme="outline"></i> Desligar servidor
         </button>
 
-        <button *ngIf="server.portInfo.status === PortStatus.Close" nz-button nzType="primary" (click)="openPort('*')"
-            [nzLoading]="loading">
+        <button *ngIf="server.portInfo.status === PortStatus.Close || server.portInfo.rules != '*'" nz-button
+            nzType="primary" (click)="openPort('*')" [nzLoading]="loading">
             <i nz-icon nzType="unlock" nzTheme="outline"></i> Abrir porta para todos
         </button>
 

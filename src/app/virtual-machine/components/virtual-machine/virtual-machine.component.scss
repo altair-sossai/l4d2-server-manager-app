@@ -2,13 +2,20 @@ h2 {
     text-align: center;
 }
 
-code {
-    display: block;
+table {
+    margin-bottom: 15px;
+    font-size: 13px;
+
+    th {
+        text-align: left;
+        padding-right: 10px;
+    }
 }
 
 .ports {
     display: flex;
-
+    flex-wrap: wrap;
+    
     a {
         margin: 5px;
     }

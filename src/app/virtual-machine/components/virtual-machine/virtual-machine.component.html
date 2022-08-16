@@ -16,13 +16,19 @@
 
 <ng-container *ngIf="virtualMachine && virtualMachine.isOn && ports">
     <p>A máquina virtual encontra-se <b>LIGADA</b>.</p>
-    <p><code>IP: {{virtualMachine.ipAddress}}</code></p>
+
+    <table>
+        <tr>
+            <th>IP</th>
+            <td>{{virtualMachine.ipAddress}}</td>
+        </tr>
+    </table>
 
     <nz-divider nzText="Portas disponíveis"></nz-divider>
-    <p>Escolha uma das portas abaixo para iniciar o servidor:</p>
+    <p>Escolha uma das portas abaixo:</p>
     <div *ngIf="virtualMachine?.isOn && ports" class="ports">
         <a nz-button nzType="default" *ngFor="let port of ports" [routerLink]="['/server', port]">
-            Porta {{port}}
+            Porta #{{port}}
         </a>
     </div>
 
