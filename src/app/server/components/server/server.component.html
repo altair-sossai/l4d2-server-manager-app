@@ -11,8 +11,9 @@
 
     <p>Como iniciar o servidor?</p>
     <ol>
-        <li>Inicie o servidor</li>
-        <li>Copie o IP do servidor e entre no jogo</li>
+        <li>Clique no botão abaixo</li>
+        <li>Copie o IP</li>
+        <li>Cole o IP no terminal do jogo</li>
     </ol>
 
     <nz-divider></nz-divider>
@@ -37,7 +38,11 @@
         </tr>
         <tr>
             <th>IP / Porta</th>
-            <td>{{server.ipAddress}}:{{server.port}}</td>
+            <td>
+                {{fullIpAddress}}
+                <i nz-icon nzType="copy" nzTheme="outline" class="copy" ngxClipboard [cbContent]="fullIpAddress"
+                    (cbOnSuccess)="copied()" nz-tooltip nzTooltipTitle="Clique para copiar"></i>
+            </td>
         </tr>
         <tr>
             <th>Slots:</th>
@@ -76,7 +81,7 @@
     <small>Conectar ao servidor:</small>
     <code *ngIf="server.isRunning">
         <span>{{connectCommand}}</span>
-        <i nz-icon nzType="copy" nzTheme="outline" 
+        <i nz-icon nzType="copy" nzTheme="outline" class="copy"
             ngxClipboard [cbContent]="connectCommand" (cbOnSuccess)="copied()" 
             nz-tooltip nzTooltipTitle="Clique para copiar"></i>
     </code>
@@ -84,7 +89,7 @@
     <small>Criar uma sala utilizando o servidor:</small>
     <code *ngIf="server.isRunning">
         <span>{{dedicatedCommand}}</span>
-        <i nz-icon nzType="copy" nzTheme="outline" 
+        <i nz-icon nzType="copy" nzTheme="outline" class="copy"
             ngxClipboard [cbContent]="dedicatedCommand" (cbOnSuccess)="copied()" 
             nz-tooltip nzTooltipTitle="Clique para copiar"></i>
     </code>

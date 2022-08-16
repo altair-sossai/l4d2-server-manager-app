@@ -107,12 +107,16 @@ export class ServerComponent implements OnInit {
     });
   }
 
+  public get fullIpAddress(): string {
+    return `${this.server?.ipAddress}:${this.server?.port}`;
+  }
+
   public get connectCommand(): string {
-    return `connect ${this.server?.ipAddress}:${this.server?.port}`;
+    return `connect ${this.fullIpAddress}`;
   }
 
   public get dedicatedCommand(): string {
-    return `mm_dedicated_force_servers ${this.server?.ipAddress}:${this.server?.port}`;
+    return `mm_dedicated_force_servers ${this.fullIpAddress}`;
   }
 
   copied(): void {

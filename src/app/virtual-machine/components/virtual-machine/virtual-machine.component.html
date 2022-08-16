@@ -6,12 +6,12 @@
 
 <ng-container *ngIf="virtualMachine && virtualMachine.isOff">
     <p>
-        A máquina virtual: <nz-tag nzColor="red"><b>DESLIGADA</b></nz-tag>
+        Máquina virtual: <nz-tag nzColor="red"><b>DESLIGADA</b></nz-tag>
     </p>
 
     <p>Como ligar o servidor?</p>
     <ol>
-        <li>Ligue a máquina virtual</li>
+        <li>Clique no botão abaixo</li>
         <li>Escolha uma das portas disponíveis</li>
     </ol>
 
@@ -24,7 +24,7 @@
 </ng-container>
 
 <ng-container *ngIf="virtualMachine && virtualMachine.isOn">
-    A máquina virtual: <nz-tag nzColor="green"><b>LIGADA</b></nz-tag>
+    Máquina virtual: <nz-tag nzColor="green"><b>LIGADA</b></nz-tag>
 
     <table>
         <tr>
