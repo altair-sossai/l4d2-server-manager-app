@@ -4,7 +4,7 @@
 
 <ng-container *ngIf="virtualMachine && virtualMachine.isOff">
     <p>
-        A máquina virtual encontra-se <b>desligada</b>,
+        A máquina virtual encontra-se <b>DESLIGADA</b>,
         para prosseguir é necessário primeiro liga-la:
     </p>
 
@@ -15,7 +15,7 @@
 </ng-container>
 
 <ng-container *ngIf="virtualMachine && virtualMachine.isOn && ports">
-    <p>A máquina virtual encontra-se <b>ligada</b>.</p>
+    <p>A máquina virtual encontra-se <b>LIGADA</b>.</p>
     <p><code>IP: {{virtualMachine.ipAddress}}</code></p>
 
     <nz-divider nzText="Portas disponíveis"></nz-divider>

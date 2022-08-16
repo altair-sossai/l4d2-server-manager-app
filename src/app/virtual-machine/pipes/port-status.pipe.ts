@@ -6,7 +6,7 @@ import { PortStatus } from '../enums/port-status.enum';
 })
 export class PortStatusPipe implements PipeTransform {
   static descriptions = {
-    [PortStatus.Open]: 'Aberto',
+    [PortStatus.Open]: 'Liberado',
     [PortStatus.Close]: 'Fechado'
   }
 

@@ -4,7 +4,7 @@
 
 <ng-container *ngIf="server && !server.isRunning">
     <p>
-        O servidor encontra-se <b>desligado</b>,
+        O servidor encontra-se <b>DESLIGADO</b>,
         para prosseguir é necessário primeiro liga-lo:
     </p>
 
@@ -14,62 +14,87 @@
     </button>
 </ng-container>
 
-<div *ngIf="server">
-    <dl>
-        <dt>IP:</dt>
-        <dd>{{server.ipAddress}}</dd>
-        <dt>Porta:</dt>
-        <dd>{{server.port}}</dd>
-        <dt>Rodando:</dt>
-        <dd>{{server.isRunning ? 'Sim' : 'Não'}}</dd>
-        <dt>Portas do servidor:</dt>
-        <dd>{{server.portInfo.status | portStatus}} / {{server.portInfo.rules}}</dd>
-    </dl>
+<ng-container *ngIf="server && server.isRunning">
+    <p>O servidor encontra-se <b>LIGADO</b>.</p>
 
-    <dl *ngIf="serverInfo">
-        <dt>Nome do servidor:</dt>
-        <dd>{{serverInfo.name}}</dd>
-        <dt>Vagas:</dt>
-        <dd>{{serverInfo.players}} / {{serverInfo.maxPlayers}}</dd>
-        <dt>Campanha:</dt>
-        <dd>{{serverInfo.map}}</dd>
-        <dt>Tipo de jogo:</dt>
-        <dd>{{serverInfo.gametype}}</dd>
-    </dl>
+    <nz-skeleton [nzActive]="true" *ngIf="!serverInfo"></nz-skeleton>
 
+    <table *ngIf="serverInfo">
+        <tr>
+            <th>Nome do servidor:</th>
+            <td>{{serverInfo.name}}</td>
+        </tr>
+        <tr>
+            <th>IP / Porta</th>
+            <td>{{server.ipAddress}}:{{server.port}}</td>
+        </tr>
+        <tr>
+            <th>Slots:</th>
+            <td>{{serverInfo.players}} / {{serverInfo.maxPlayers}}</td>
+        </tr>
+        <tr>
+            <th>Campanha:</th>
+            <td>{{serverInfo.map}}</td>
+        </tr>
+        <tr *ngIf="players?.length">
+            <th>Jogadores:</th>
+            <td>{{ players | players }}</td>
+        </tr>
+        <tr>
+            <th>Modo de jogo:</th>
+            <td>{{serverInfo.gametype}}</td>
+        </tr>
+        <tr>
+            <th>Acesso ao servidor:</th>
+            <td>
+                <nz-tag *ngIf="server.portInfo.status == PortStatus.Open && server.portInfo.rules == '*'"
+                    nzColor="green">
+                    {{server.portInfo.status | portStatus}}
+                </nz-tag>
+                <nz-tag *ngIf="server.portInfo.status == PortStatus.Open && server.portInfo.rules != '*'"
+                    nzColor="orange">
+                    {{server.portInfo.status | portStatus}} apenas para o(s) IP(s) {{server.portInfo.rules}}
+                </nz-tag>
+                <nz-tag nzColor="red" *ngIf="server.portInfo.status == PortStatus.Close">
+                    {{server.portInfo.status | portStatus}}
+                </nz-tag>
+            </td>
+        </tr>
+    </table>
+
+    <small>Conectar ao servidor:</small>
     <code *ngIf="server.isRunning">
         connect {{server.ipAddress}}:{{server.port}}
     </code>
 
+    <small>Criar uma sala utilizando o servidor:</small>
     <code *ngIf="server.isRunning">
         mm_dedicated_force_servers {{server.ipAddress}}:{{server.port}}
     </code>
 
-    <ul *ngIf="players">
-        <li *ngFor="let player of players">{{player.name}}</li>
-    </ul>
+    <nz-divider></nz-divider>
 
-    <button *ngIf="!server.isRunning" nz-button nzType="primary" (click)="run()" [nzLoading]="loading">
-        <i nz-icon nzType="play-circle" nzTheme="outline"></i> Iniciar
-    </button>
+    <div class="buttons">
+        <button nz-button nzType="primary" nzDanger (click)="stop()" [nzLoading]="loading">
+            <i nz-icon nzType="poweroff" nzTheme="outline"></i> Desligar servidor
+        </button>
 
-    <button *ngIf="server.isRunning" nz-button nzType="primary" (click)="stop()" [nzLoading]="loading">
-        <i nz-icon nzType="play-circle" nzTheme="outline"></i> Parar
-    </button>
+        <button *ngIf="server.portInfo.status === PortStatus.Close" nz-button nzType="primary" (click)="openPort('*')"
+            [nzLoading]="loading">
+            <i nz-icon nzType="unlock" nzTheme="outline"></i> Abrir porta para todos
+        </button>
 
-    <button *ngIf="server.portInfo.status === PortStatus.Close" nz-button nzType="primary" (click)="openPort()"
-        [nzLoading]="loading">
-        <i nz-icon nzType="unlock" nzTheme="outline"></i> Abrir portas
-    </button>
+        <button nz-button nzType="primary" (click)="openPort(null)" [nzLoading]="loading">
+            <i nz-icon nzType="unlock" nzTheme="outline"></i> Abrir porta para um IP específico
+        </button>
 
-    <button *ngIf="server.portInfo.status === PortStatus.Open" nz-button nzType="primary" (click)="closePort()"
-        [nzLoading]="loading">
-        <i nz-icon nzType="lock" nzTheme="outline"></i> Fechar portas
-    </button>
+        <button *ngIf="server.portInfo.status === PortStatus.Open" nz-button nzType="primary" (click)="closePort()"
+            [nzLoading]="loading">
+            <i nz-icon nzType="lock" nzTheme="outline"></i> Fechar porta
+        </button>
+    </div>
+</ng-container>
 
-    <button nz-button nzType="primary" (click)="refresh()" [nzLoading]="loading">
-        <i nz-icon nzType="reload" nzTheme="outline"></i> Atualizar
-    </button>
-</div>
-
-<a [routerLink]="['/virtual-machine']">Máquina virtual</a>
+<a [routerLink]="['/virtual-machine']" class="access-virtual-machine">
+    Acessar máquina virtual
+</a>

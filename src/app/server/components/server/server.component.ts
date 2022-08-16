@@ -78,22 +78,23 @@ export class ServerComponent implements OnInit {
     });
   }
 
-  openPort(): void {
-    this.modalService.confirm({
-      nzTitle: 'Atenção, as portas do servidor serão abertas, deseja continuar?',
-      nzOnOk: () => {
-        this.loading = true;
-        this.serverService.openPort(this.port!, { ranges: '*' }).subscribe(() => {
-          this.refresh();
-          this.loading = false;
-        });
-      }
+  openPort(ranges: string | null): void {
+    if (!ranges)
+      ranges = prompt('Informe os IPs');
+
+    if (!ranges)
+      return;
+
+    this.loading = true;
+    this.serverService.openPort(this.port!, { ranges }).subscribe(() => {
+      this.refresh();
+      this.loading = false;
     });
   }
 
   closePort(): void {
     this.modalService.confirm({
-      nzTitle: 'Atenção, as portas do servidor serão fechadas, deseja continuar?',
+      nzTitle: 'Atenção, a porta do servidor será fechada, deseja continuar?',
       nzOnOk: () => {
         this.loading = true;
         this.serverService.closePort(this.port!).subscribe(() => {

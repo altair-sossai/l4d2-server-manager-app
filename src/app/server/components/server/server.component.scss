@@ -4,4 +4,32 @@ h2 {
 
 code {
     display: block;
+    border: 1px inset black;
+    padding: 5px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+table {
+    margin-bottom: 15px;
+    font-size: 13px;
+
+    th {
+        text-align: left;
+        padding-right: 10px;
+    }
+}
+
+.buttons {
+    display: flex;
+
+    button {
+        margin-right: 10px;
+    }
+}
+
+.access-virtual-machine {
+    margin-top: 25px;
+    display: block;
 }
