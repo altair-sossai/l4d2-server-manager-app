@@ -1,25 +1,35 @@
+<h2>Máquina virtual</h2>
+
 <nz-skeleton [nzActive]="true" *ngIf="!virtualMachine || !ports"></nz-skeleton>
 
-<div *ngIf="virtualMachine">
-    <dl>
-        <dt>Status:</dt>
-        <dd>{{virtualMachine.status | virtualMachineStatus}}</dd>
-        <dt *ngIf="virtualMachine.ipAddress">IP:</dt>
-        <dd *ngIf="virtualMachine.ipAddress">{{virtualMachine.ipAddress}}</dd>
-    </dl>
-    <button *ngIf="virtualMachine.isOff" nz-button nzType="primary" (click)="powerOn()" [nzLoading]="loading">
-        <i nz-icon nzType="play-circle" nzTheme="outline"></i> Ligar
-    </button>
-    <button *ngIf="virtualMachine.isOn" nz-button nzType="primary" (click)="powerOff()" [nzLoading]="loading">
-        <i nz-icon nzType="poweroff" nzTheme="outline"></i> Desligar
-    </button>
-    <button nz-button nzType="primary" (click)="refresh()" [nzLoading]="loading">
-        <i nz-icon nzType="reload" nzTheme="outline"></i> Atualizar
-    </button>
-</div>
+<ng-container *ngIf="virtualMachine && virtualMachine.isOff">
+    <p>
+        A máquina virtual encontra-se <b>desligada</b>,
+        para prosseguir é necessário primeiro liga-la:
+    </p>
 
-<div *ngIf="virtualMachine?.isOn && ports">
-    <a *ngFor="let port of ports" [routerLink]="['/server', port]">
-        Porta {{port}}
-    </a>
-</div>
+    <button nz-button nzType="primary" (click)="powerOn()" [nzLoading]="loading">
+        <i nz-icon nzType="play-circle" nzTheme="outline"></i>
+        {{ loading ? 'Ligando...' : 'Ligar máquina virtual' }}
+    </button>
+</ng-container>
+
+<ng-container *ngIf="virtualMachine && virtualMachine.isOn && ports">
+    <p>A máquina virtual encontra-se <b>ligada</b>.</p>
+    <p><code>IP: {{virtualMachine.ipAddress}}</code></p>
+
+    <nz-divider nzText="Portas disponíveis"></nz-divider>
+    <p>Escolha uma das portas abaixo para iniciar o servidor:</p>
+    <div *ngIf="virtualMachine?.isOn && ports" class="ports">
+        <a nz-button nzType="default" *ngFor="let port of ports" [routerLink]="['/server', port]">
+            Porta {{port}}
+        </a>
+    </div>
+
+    <nz-divider></nz-divider>
+
+    <button nz-button nzType="primary" nzDanger (click)="powerOff()" [nzLoading]="loading">
+        <i nz-icon nzType="poweroff" nzTheme="outline"></i>
+        {{ loading ? 'Desligando...' : 'Desligar máquina virtual' }}
+    </button>
+</ng-container>

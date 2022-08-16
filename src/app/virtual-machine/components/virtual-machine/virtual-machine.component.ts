@@ -34,15 +34,10 @@ export class VirtualMachineComponent implements OnInit {
   }
 
   powerOn(): void {
-    this.modalService.confirm({
-      nzTitle: 'Deseja realmente ligar a máquina?',
-      nzOnOk: () => {
-        this.loading = true;
-        this.virtualMachineService.powerOn().subscribe(virtualMachine => {
-          this.virtualMachine = virtualMachine;
-          this.loading = false;
-        });
-      }
+    this.loading = true;
+    this.virtualMachineService.powerOn().subscribe(virtualMachine => {
+      this.virtualMachine = virtualMachine;
+      this.loading = false;
     });
   }
 
