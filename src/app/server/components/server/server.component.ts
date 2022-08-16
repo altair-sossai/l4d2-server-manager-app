@@ -58,15 +58,10 @@ export class ServerComponent implements OnInit {
   }
 
   run(): void {
-    this.modalService.confirm({
-      nzTitle: 'Deseja realmente iniciar o servidor?',
-      nzOnOk: () => {
-        this.loading = true;
-        this.serverService.run(this.port!).subscribe(() => {
-          this.refresh();
-          this.loading = false;
-        });
-      }
+    this.loading = true;
+    this.serverService.run(this.port!).subscribe(() => {
+      this.refresh();
+      this.loading = false;
     });
   }
 

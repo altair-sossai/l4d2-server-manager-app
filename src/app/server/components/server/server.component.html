@@ -1,4 +1,18 @@
+<h2>Porta #{{port}}</h2>
+
 <nz-skeleton [nzActive]="true" *ngIf="!server"></nz-skeleton>
+
+<ng-container *ngIf="server && !server.isRunning">
+    <p>
+        O servidor encontra-se <b>desligado</b>,
+        para prosseguir é necessário primeiro liga-lo:
+    </p>
+
+    <button nz-button nzType="primary" (click)="run()" [nzLoading]="loading">
+        <i nz-icon nzType="play-circle" nzTheme="outline"></i>
+        {{ loading ? 'Ligando...' : 'Ligar servidor' }}
+    </button>
+</ng-container>
 
 <div *ngIf="server">
     <dl>
