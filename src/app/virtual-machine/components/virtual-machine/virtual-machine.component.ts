@@ -41,8 +41,8 @@ export class VirtualMachineComponent implements OnInit {
 
   powerOn(): void {
     this.loading = true;
-    this.virtualMachineService.powerOn().subscribe(virtualMachine => {
-      this.virtualMachine = virtualMachine;
+    this.virtualMachineService.powerOn().subscribe(() => {
+      this.refresh();
       this.loading = false;
     });
   }
@@ -52,8 +52,8 @@ export class VirtualMachineComponent implements OnInit {
       nzTitle: 'Atenção, todos os servidores seram desligados, deseja continuar?',
       nzOnOk: () => {
         this.loading = true;
-        this.virtualMachineService.powerOff().subscribe(virtualMachine => {
-          this.virtualMachine = virtualMachine;
+        this.virtualMachineService.powerOff().subscribe(() => {
+          this.refresh();
           this.loading = false;
         });
       }
