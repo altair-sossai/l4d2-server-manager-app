@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { PortStatus } from '../enums/port-status.enum';
 
 @Pipe({
-  name: 'port-status'
+  name: 'portStatus'
 })
 export class PortStatusPipe implements PipeTransform {
   static descriptions = {

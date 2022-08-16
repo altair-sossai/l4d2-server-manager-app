@@ -1,0 +1,17 @@
+<nz-skeleton [nzActive]="true" *ngIf="!server"></nz-skeleton>
+
+<div *ngIf="server">
+    <dl>
+        <dt>IP:</dt>
+        <dd>{{server.ipAddress}}</dd>
+        <dt>Porta:</dt>
+        <dd>{{server.port}}</dd>
+        <dt>Rodando:</dt>
+        <dd>{{server.isRunning ? 'Sim' : 'Não'}}</dd>
+        <dt>Portas do servidor:</dt>
+        <dd>{{server.portInfo.status | portStatus}} / {{server.portInfo.rules}}</dd>
+    </dl>
+
+    <pre>{{serverInfo|json}}</pre>
+    <pre>{{players|json}}</pre>
+</div>

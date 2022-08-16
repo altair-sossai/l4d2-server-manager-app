@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { VirtualMachineStatus } from '../enums/virtual-machine-status.enum';
 
 @Pipe({
-  name: 'virtual-machine-status'
+  name: 'virtualMachineStatus'
 })
 export class VirtualMachineStatusPipe implements PipeTransform {
   static descriptions = {

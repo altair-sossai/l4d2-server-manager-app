@@ -1,9 +1,27 @@
-<p>virtual-machine works!</p>
+<nz-skeleton [nzActive]="true" *ngIf="!virtualMachine || !ports"></nz-skeleton>
 
-<pre>
-    {{virtualMachine|json}}
-</pre>
+<div *ngIf="virtualMachine">
+    <dl>
+        <dt>Status:</dt>
+        <dd>{{virtualMachine.status | virtualMachineStatus}}</dd>
+        <dt *ngIf="virtualMachine.ipAddress">IP:</dt>
+        <dd *ngIf="virtualMachine.ipAddress">{{virtualMachine.ipAddress}}</dd>
+    </dl>
+    <button *ngIf="virtualMachine.isOff" nz-button nzType="primary" (click)="powerOn()" [nzLoading]="loading">
+        <i nz-icon nzType="play-circle" nzTheme="outline"></i>
+        {{loading ? 'Ligando...' : 'Ligar'}}
+    </button>
+    <button *ngIf="virtualMachine.isOn" nz-button nzType="primary" (click)="powerOff()" [nzLoading]="loading">
+        <i nz-icon nzType="poweroff" nzTheme="outline"></i>
+        {{loading ? 'Desligando...' : 'Desligar'}}
+    </button>
+    <button nz-button nzType="primary" (click)="refresh()" [nzLoading]="loading">
+        <i nz-icon nzType="reload" nzTheme="outline"></i> Atualizar
+    </button>
+</div>
 
-<pre>
-    {{ports|json}}
-</pre>
+<div *ngIf="virtualMachine?.isOn && ports">
+    <a *ngFor="let port of ports" [routerLink]="['/server', port]">
+        Porta {{port}}
+    </a>
+</div>

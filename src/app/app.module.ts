@@ -25,6 +25,7 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LockedScreenComponent } from './auth/components/locked-screen/locked-screen.component';
+import { ServerComponent } from './server/components/server/server.component';
 import { AppHttpInterceptor } from './shared/http-interceptor';
 import { VirtualMachineComponent } from './virtual-machine/components/virtual-machine/virtual-machine.component';
 import { PortStatusPipe } from './virtual-machine/pipes/port-status.pipe';
@@ -38,7 +39,8 @@ registerLocaleData(pt);
     LockedScreenComponent,
     PortStatusPipe,
     VirtualMachineStatusPipe,
-    VirtualMachineComponent
+    VirtualMachineComponent,
+    ServerComponent
   ],
   imports: [
     BrowserModule,
