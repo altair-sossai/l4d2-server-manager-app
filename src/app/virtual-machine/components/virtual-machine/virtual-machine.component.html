@@ -1,5 +1,7 @@
 <h2>Máquina virtual</h2>
 
+<nz-divider></nz-divider>
+
 <nz-skeleton [nzActive]="true" *ngIf="!virtualMachine || !ports"></nz-skeleton>
 
 <ng-container *ngIf="virtualMachine && virtualMachine.isOff">
