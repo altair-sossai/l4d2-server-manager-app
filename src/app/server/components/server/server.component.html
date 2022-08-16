@@ -6,18 +6,27 @@
 
 <ng-container *ngIf="server && !server.isRunning">
     <p>
-        O servidor encontra-se <b>DESLIGADO</b>,
-        para prosseguir é necessário primeiro liga-lo:
+        Servidor: <nz-tag nzColor="red"><b>NÃO INICIADO</b></nz-tag>
     </p>
+
+    <p>Como iniciar o servidor?</p>
+    <ol>
+        <li>Inicie o servidor</li>
+        <li>Copie o IP do servidor e entre no jogo</li>
+    </ol>
+
+    <nz-divider></nz-divider>
 
     <button nz-button nzType="primary" (click)="run()" [nzLoading]="loading">
         <i nz-icon nzType="play-circle" nzTheme="outline"></i>
-        {{ loading ? 'Ligando...' : 'Ligar servidor' }}
+        {{ loading ? 'Iniciando...' : 'Iniciar servidor' }}
     </button>
 </ng-container>
 
 <ng-container *ngIf="server && server.isRunning">
-    <p>O servidor encontra-se <b>LIGADO</b>.</p>
+    <p>
+        Servidor: <nz-tag nzColor="green"><b>INICIADO</b></nz-tag>
+    </p>
 
     <nz-skeleton [nzActive]="true" *ngIf="!serverInfo"></nz-skeleton>
 
@@ -66,12 +75,12 @@
 
     <small>Conectar ao servidor:</small>
     <code *ngIf="server.isRunning">
-        connect {{server.ipAddress}}:{{server.port}}
+        <span>connect {{server.ipAddress}}:{{server.port}}</span>
     </code>
 
     <small>Criar uma sala utilizando o servidor:</small>
     <code *ngIf="server.isRunning">
-        mm_dedicated_force_servers {{server.ipAddress}}:{{server.port}}
+        <span>mm_dedicated_force_servers {{server.ipAddress}}:{{server.port}}</span>
     </code>
 
     <nz-divider></nz-divider>
