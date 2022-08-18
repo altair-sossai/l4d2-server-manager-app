@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
@@ -30,6 +29,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LockedScreenComponent } from './auth/components/locked-screen/locked-screen.component';
 import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
+import { PortDetailComponent } from './port/components/port-detail/port-detail.component';
 import { ServerComponent } from './server/components/server/server.component';
 import { PlayersPipe } from './server/pipes/players.pipe';
 import { AppHttpInterceptor } from './shared/http-interceptor';
@@ -48,7 +48,8 @@ registerLocaleData(pt);
     PlayersPipe,
     VirtualMachineComponent,
     ServerComponent,
-    AppLayoutComponent
+    AppLayoutComponent,
+    PortDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +73,6 @@ registerLocaleData(pt);
     NzSelectModule,
     NzCollapseModule,
     NzTagModule,
-    NzBadgeModule,
     NzToolTipModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

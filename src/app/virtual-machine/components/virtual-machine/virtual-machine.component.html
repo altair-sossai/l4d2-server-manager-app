@@ -35,12 +35,8 @@
 
     <p>Escolha uma das portas abaixo:</p>
     <nz-skeleton [nzActive]="true" *ngIf="!ports"></nz-skeleton>
-    <div class="buttons" *ngIf="ports">
-        <nz-badge *ngFor="let port of ports" [nzCount]="port.connectedPlayers">
-            <a nz-button nzType="default" [routerLink]="['/server', port.portNumber]">
-                Porta {{port.portNumber}}
-            </a>
-        </nz-badge>
+    <div class="ports" *ngIf="ports">
+        <app-port-detail *ngFor="let port of ports" [port]="port"></app-port-detail>
     </div>
 
     <nz-divider></nz-divider>

@@ -1,0 +1,27 @@
+<a [routerLink]="['/server', port.portNumber]" class="container">
+    <div class="port-info">
+        <h2>#{{port.portNumber}}</h2>
+
+        <nz-tag *ngIf="port.isRunning" nzColor="green">
+            <b>INICIADO</b>
+        </nz-tag>
+
+        <nz-tag *ngIf="!port.isRunning" nzColor="red">
+            <b>NÃO INICIADO</b>
+        </nz-tag>
+    </div>
+
+    <nz-divider nzType="vertical" *ngIf="port.serverInfo"></nz-divider>
+
+    <div *ngIf="port.serverInfo" class="server-info">
+        <p>
+            <b>Slots:</b> {{port.serverInfo.players}} / {{port.serverInfo.maxPlayers}}
+        </p>
+        <p>
+            <b>Campanha:</b> {{port.serverInfo.map}}
+        </p>
+        <p>
+            <b>Modo de jogo:</b> {{port.serverInfo.gametype}}
+        </p>
+    </div>
+</a>

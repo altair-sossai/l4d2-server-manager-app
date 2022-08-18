@@ -12,15 +12,13 @@ table {
     }
 }
 
-.buttons {
+.buttons,
+.ports {
     display: flex;
     flex-wrap: wrap;
 
-    button {
+    button,
+    app-port-detail {
         margin: 5px;
-    }
-
-    nz-badge {
-        margin: 5px 8px;
     }
 }
