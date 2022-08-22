@@ -27,19 +27,23 @@ export class ServerService {
         return this.http.get<Player[]>(`${environment.apiUrl}/api/server/${ip}:${port}/players`);
     }
 
-    run(port: number): Observable<Server> {
-        return this.http.put<Server>(`${environment.apiUrl}/api/server/${port}/run`, {});
+    run(port: number): Observable<void> {
+        return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/run`, {});
     }
 
-    stop(port: number): Observable<Server> {
-        return this.http.put<Server>(`${environment.apiUrl}/api/server/${port}/stop`, {});
+    stop(port: number): Observable<void> {
+        return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/stop`, {});
     }
 
-    openPort(port: number, command: OpenPortCommand): Observable<Server> {
-        return this.http.put<Server>(`${environment.apiUrl}/api/server/${port}/open-port`, command);
+    kickAllPlayers(port: number): Observable<void> {
+        return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/kick-all-players`, {});
     }
 
-    closePort(port: number): Observable<Server> {
-        return this.http.put<Server>(`${environment.apiUrl}/api/server/${port}/close-port`, {});
+    openPort(port: number, command: OpenPortCommand): Observable<void> {
+        return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/open-port`, command);
+    }
+
+    closePort(port: number): Observable<void> {
+        return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/close-port`, {});
     }
 }

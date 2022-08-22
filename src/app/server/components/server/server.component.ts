@@ -80,6 +80,19 @@ export class ServerComponent implements OnInit {
     });
   }
 
+  kickAllPlayers(): void {
+    this.modalService.confirm({
+      nzTitle: 'Atenção, todos os players serão kickados, deseja realmente continuar?',
+      nzOnOk: () => {
+        this.loading = true;
+        this.serverService.kickAllPlayers(this.port!).subscribe(() => {
+          this.refresh();
+          this.loading = false;
+        });
+      }
+    });
+  }
+
   openPort(ranges: string | null): void {
     if (!ranges)
       ranges = prompt('Informe os IPs');
