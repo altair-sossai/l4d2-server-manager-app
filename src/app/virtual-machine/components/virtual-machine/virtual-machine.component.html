@@ -31,6 +31,13 @@
             <th>IP:</th>
             <td>{{virtualMachine.ipAddress}}</td>
         </tr>
+        <tr>
+            <th>Ligada por:</th>
+            <td>
+                <app-user-detail *ngIf="user" [user]="user"></app-user-detail>
+                <nz-skeleton *ngIf="!user" [nzActive]="true"></nz-skeleton>
+            </td>
+        </tr>
     </table>
 
     <p>Escolha uma das portas abaixo:</p>
