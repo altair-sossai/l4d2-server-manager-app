@@ -7,4 +7,5 @@ export interface VirtualMachine {
     ipAddress: string;
     permissions: string[];
     powerOnBy: string;
+    powerOnAt: Date;
 }

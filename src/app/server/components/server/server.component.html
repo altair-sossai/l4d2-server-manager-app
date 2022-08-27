@@ -39,6 +39,10 @@
                 <nz-skeleton *ngIf="!user" [nzActive]="true"></nz-skeleton>
             </td>
         </tr>
+        <tr *ngIf="server.startedAt">
+            <th>Iniciado em:</th>
+            <td>{{server.startedAt|date:'short'}}</td>
+        </tr>
         <tr>
             <th>Nome do servidor:</th>
             <td>{{serverInfo.name}}</td>

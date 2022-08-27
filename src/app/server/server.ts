@@ -9,4 +9,5 @@ export interface Server {
     portInfo: PortInfo;
     permissions: string[];
     startedBy: string;
+    startedAt: Date;
 }

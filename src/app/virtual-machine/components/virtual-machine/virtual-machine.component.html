@@ -38,6 +38,10 @@
                 <nz-skeleton *ngIf="!user" [nzActive]="true"></nz-skeleton>
             </td>
         </tr>
+        <tr *ngIf="virtualMachine.powerOnAt">
+            <th>Ligada em:</th>
+            <td>{{virtualMachine.powerOnAt|date:'short'}}</td>
+        </tr>
     </table>
 
     <p>Escolha uma das portas abaixo:</p>
