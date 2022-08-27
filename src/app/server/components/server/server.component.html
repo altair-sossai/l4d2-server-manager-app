@@ -33,6 +33,13 @@
 
     <table *ngIf="serverInfo">
         <tr>
+            <th>Iniciado por:</th>
+            <td>
+                <app-user-detail *ngIf="user" [user]="user"></app-user-detail>
+                <nz-skeleton *ngIf="!user" [nzActive]="true"></nz-skeleton>
+            </td>
+        </tr>
+        <tr>
             <th>Nome do servidor:</th>
             <td>{{serverInfo.name}}</td>
         </tr>
@@ -97,25 +104,26 @@
     <nz-divider></nz-divider>
 
     <div class="buttons">
-        <button nz-button nzType="primary" nzDanger (click)="stop()" [nzLoading]="loading">
+        <button nz-button nzType="primary" nzDanger (click)="stop()" [nzLoading]="loading" *ngIf="canStop()">
             <i nz-icon nzType="poweroff" nzTheme="outline"></i> Desligar servidor
         </button>
 
-        <button nz-button nzType="primary" nzDanger (click)="kickAllPlayers()" [nzLoading]="loading">
+        <button nz-button nzType="primary" nzDanger (click)="kickAllPlayers()" [nzLoading]="loading"
+            *ngIf="canKickAllPlayers()">
             <i nz-icon nzType="usergroup-delete" nzTheme="outline"></i> Expulsar todos os jogadores
         </button>
 
-        <button *ngIf="server.portInfo.status === PortStatus.Close || server.portInfo.rules != '*'" nz-button
-            nzType="primary" (click)="openPort('*')" [nzLoading]="loading">
+        <button *ngIf="canOpenPort() && (server.portInfo.status === PortStatus.Close || server.portInfo.rules != '*')"
+            nz-button nzType="primary" (click)="openPort('*')" [nzLoading]="loading">
             <i nz-icon nzType="unlock" nzTheme="outline"></i> Abrir porta para todos
         </button>
 
-        <button nz-button nzType="primary" (click)="openPort(null)" [nzLoading]="loading">
+        <button nz-button nzType="primary" (click)="openPort(null)" [nzLoading]="loading" *ngIf="canOpenPort()">
             <i nz-icon nzType="unlock" nzTheme="outline"></i> Abrir porta para um IP específico
         </button>
 
-        <button *ngIf="server.portInfo.status === PortStatus.Open" nz-button nzType="primary" (click)="closePort()"
-            [nzLoading]="loading">
+        <button *ngIf="canClosePort() && server.portInfo.status === PortStatus.Open" nz-button nzType="primary"
+            (click)="closePort()" [nzLoading]="loading">
             <i nz-icon nzType="lock" nzTheme="outline"></i> Fechar porta
         </button>
 

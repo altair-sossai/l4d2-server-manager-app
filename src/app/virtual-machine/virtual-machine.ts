@@ -5,4 +5,6 @@ export interface VirtualMachine {
     isOn: boolean;
     isOff: boolean;
     ipAddress: string;
+    permissions: string[];
+    powerOnBy: string;
 }

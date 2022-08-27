@@ -7,4 +7,6 @@ export interface Server {
     port: number;
     isRunning: boolean;
     portInfo: PortInfo;
+    permissions: string[];
+    startedBy: string;
 }
