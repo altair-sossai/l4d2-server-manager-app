@@ -65,4 +65,15 @@ export class VirtualMachineComponent implements OnInit {
       }
     });
   }
+
+  hasPermissions(permission: string): boolean {
+    if (!this.virtualMachine?.permissions)
+      return false;
+
+    return this.virtualMachine.permissions.indexOf(permission) !== -1;
+  }
+
+  canPowerOff(): boolean {
+    return this.hasPermissions('power-off');
+  }
 }

@@ -50,7 +50,7 @@
 
     <div class="buttons">
         <button nz-button nzType="primary" nzDanger (click)="powerOff()" [nzLoading]="loading">
-            <i nz-icon nzType="poweroff" nzTheme="outline"></i>
+            <i nz-icon nzType="poweroff" nzTheme="outline" *ngIf="canPowerOff()"></i>
             {{ loading ? 'Desligando...' : 'Desligar máquina virtual' }}
         </button>
 
