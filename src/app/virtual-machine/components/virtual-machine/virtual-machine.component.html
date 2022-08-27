@@ -49,8 +49,8 @@
     <nz-divider></nz-divider>
 
     <div class="buttons">
-        <button nz-button nzType="primary" nzDanger (click)="powerOff()" [nzLoading]="loading">
-            <i nz-icon nzType="poweroff" nzTheme="outline" *ngIf="canPowerOff()"></i>
+        <button nz-button nzType="primary" nzDanger (click)="powerOff()" [nzLoading]="loading" *ngIf="canPowerOff()">
+            <i nz-icon nzType="poweroff" nzTheme="outline"></i>
             {{ loading ? 'Desligando...' : 'Desligar máquina virtual' }}
         </button>
 
