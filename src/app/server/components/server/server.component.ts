@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Player } from 'src/app/player/player';
+import { UserService } from 'src/app/users/services/port.service';
+import { User } from 'src/app/users/user';
 import { PortStatus } from 'src/app/virtual-machine/enums/port-status.enum';
 import { ServerInfo } from '../../info/server-info';
 import { Server } from '../../server';
@@ -19,6 +21,7 @@ export class ServerComponent implements OnInit {
   server?: Server;
   serverInfo?: ServerInfo;
   players?: Player[];
+  user?: User;
   loading = false;
 
   PortStatus = PortStatus;
@@ -27,7 +30,8 @@ export class ServerComponent implements OnInit {
     private router: Router,
     private modalService: NzModalService,
     private message: NzMessageService,
-    private serverService: ServerService) {
+    private serverService: ServerService,
+    private userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -42,6 +46,7 @@ export class ServerComponent implements OnInit {
     this.server = undefined;
     this.serverInfo = undefined;
     this.players = undefined;
+    this.user = undefined;
 
     this.serverService.get(this.port).subscribe(server => {
       this.server = server;
@@ -56,6 +61,7 @@ export class ServerComponent implements OnInit {
 
       this.serverService.info(this.server.ipAddress, this.port!).subscribe(serverInfo => this.serverInfo = serverInfo);
       this.serverService.players(this.server.ipAddress, this.port!).subscribe(players => this.players = players);
+      this.userService.find(this.server.startedBy).subscribe(user => this.user = user);
     });
   }
 
@@ -134,5 +140,28 @@ export class ServerComponent implements OnInit {
 
   copied(): void {
     this.message.info('Copiado para a área de transferência');
+  }
+
+  hasPermissions(permission: string): boolean {
+    if (!this.server?.permissions)
+      return false;
+
+    return this.server.permissions.indexOf(permission) !== -1;
+  }
+
+  canStop(): boolean {
+    return this.hasPermissions('stop');
+  }
+
+  canKickAllPlayers(): boolean {
+    return this.hasPermissions('kick-all-players');
+  }
+
+  canOpenPort(): boolean {
+    return this.hasPermissions('open-port');
+  }
+
+  canClosePort(): boolean {
+    return this.hasPermissions('close-port');
   }
 }
