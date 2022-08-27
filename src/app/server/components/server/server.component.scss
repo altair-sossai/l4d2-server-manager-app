@@ -1,5 +1,9 @@
-h2 {
+h3 {
     text-align: center;
+}
+
+nz-divider {
+    margin: 10px 0;
 }
 
 code {
@@ -23,6 +27,7 @@ table {
     th {
         text-align: left;
         padding-right: 10px;
+        white-space: nowrap;
     }
 }
 

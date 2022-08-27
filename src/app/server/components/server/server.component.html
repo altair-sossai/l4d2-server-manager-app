@@ -1,4 +1,4 @@
-<h2>Porta {{port}}</h2>
+<h3>Porta {{port}}</h3>
 
 <nz-divider></nz-divider>
 
@@ -44,7 +44,7 @@
             <td>{{server.startedAt|date:'short'}}</td>
         </tr>
         <tr>
-            <th>Nome do servidor:</th>
+            <th>Servidor:</th>
             <td>{{serverInfo.name}}</td>
         </tr>
         <tr>
@@ -72,7 +72,7 @@
             <td>{{serverInfo.gametype}}</td>
         </tr>
         <tr>
-            <th>Acesso ao servidor:</th>
+            <th>Acesso:</th>
             <td>
                 <nz-tag *ngIf="server.portInfo.status == PortStatus.Open && server.portInfo.rules == '*'"
                     nzColor="green">
