@@ -43,6 +43,12 @@
             <th>Iniciado em:</th>
             <td>{{server.startedAt|date:'short'}}</td>
         </tr>
+        <tr *ngIf="server.startedAt">
+            <th>Tempo iniciado:</th>
+            <td>
+                <app-elapsed-time [date]="server.startedAt"></app-elapsed-time>
+            </td>
+        </tr>
         <tr>
             <th>Servidor:</th>
             <td>{{serverInfo.name}}</td>

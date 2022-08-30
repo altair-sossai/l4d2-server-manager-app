@@ -32,9 +32,11 @@ import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
 import { PortDetailComponent } from './port/components/port-detail/port-detail.component';
 import { ServerComponent } from './server/components/server/server.component';
 import { PlayersPipe } from './server/pipes/players.pipe';
+import { ElapsedTimeComponent } from './shared/components/elapsed-time/elapsed-time.component';
 import { AppHttpInterceptor } from './shared/http-interceptor';
 import { UserDetailComponent } from './users/components/user-detail/user-detail.component';
 import { VirtualMachineComponent } from './virtual-machine/components/virtual-machine/virtual-machine.component';
+import { ElapsedTimePipe } from './virtual-machine/pipes/elapsed-time';
 import { PortStatusPipe } from './virtual-machine/pipes/port-status.pipe';
 import { VirtualMachineStatusPipe } from './virtual-machine/pipes/virtual-machine-status.pipe';
 
@@ -45,13 +47,15 @@ registerLocaleData(pt);
     AppComponent,
     LockedScreenComponent,
     PortStatusPipe,
+    ElapsedTimePipe,
     VirtualMachineStatusPipe,
     PlayersPipe,
     VirtualMachineComponent,
     ServerComponent,
     AppLayoutComponent,
     PortDetailComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    ElapsedTimeComponent
   ],
   imports: [
     BrowserModule,

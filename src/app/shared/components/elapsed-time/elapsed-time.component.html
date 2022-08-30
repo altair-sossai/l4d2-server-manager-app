@@ -1,0 +1,7 @@
+<ng-container *ngIf="elapsedTime === 0">
+    Calculando...
+</ng-container>
+
+<ng-container *ngIf="elapsedTime > 0">
+    {{elapsedTime | elapsedTime}}
+</ng-container>
