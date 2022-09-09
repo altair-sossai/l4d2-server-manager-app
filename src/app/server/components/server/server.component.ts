@@ -99,6 +99,13 @@ export class ServerComponent implements OnInit {
     });
   }
 
+  givePills(): void {
+    this.loading = true;
+    this.serverService.givePills(this.port!).subscribe(() => {
+      this.loading = false;
+    });
+  }
+
   openPort(ranges: string | null): void {
     if (!ranges)
       ranges = prompt('Informe os IPs');
@@ -155,6 +162,10 @@ export class ServerComponent implements OnInit {
 
   canKickAllPlayers(): boolean {
     return this.hasPermissions('kick-all-players');
+  }
+
+  canGivePills(): boolean {
+    return this.hasPermissions('give-pills');
   }
 
   canOpenPort(): boolean {
