@@ -18,10 +18,17 @@
 
     <nz-divider></nz-divider>
 
-    <button nz-button nzType="primary" (click)="run()" [nzLoading]="loading">
-        <i nz-icon nzType="play-circle" nzTheme="outline"></i>
-        {{ loading ? 'Iniciando...' : 'Iniciar servidor' }}
-    </button>
+    <div class="buttons">
+        <button nz-button nzType="primary" (click)="run()" [nzLoading]="loading">
+            <i nz-icon nzType="play-circle" nzTheme="outline"></i>
+            {{ loading ? 'Iniciando...' : 'Iniciar servidor vanilla' }}
+        </button>
+        
+        <button nz-button nzType="primary" (click)="runZone()" [nzLoading]="loading">
+            <i nz-icon nzType="play-circle" nzTheme="outline"></i>
+            {{ loading ? 'Iniciando...' : 'Iniciar servidor zone' }}
+        </button>
+    </div>
 </ng-container>
 
 <ng-container *ngIf="server && server.isRunning">

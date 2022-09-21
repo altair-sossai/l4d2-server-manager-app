@@ -73,6 +73,14 @@ export class ServerComponent implements OnInit {
     });
   }
 
+  runZone(): void {
+    this.loading = true;
+    this.serverService.runZone(this.port!).subscribe(() => {
+      this.refresh();
+      this.loading = false;
+    });
+  }
+
   stop(): void {
     this.modalService.confirm({
       nzTitle: 'Atenção, o servidor será desligado, deseja realmente continuar?',
