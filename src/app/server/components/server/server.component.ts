@@ -22,6 +22,7 @@ export class ServerComponent implements OnInit {
   serverInfo?: ServerInfo;
   players?: Player[];
   user?: User;
+  action?: string;
   loading = false;
 
   PortStatus = PortStatus;
@@ -65,8 +66,19 @@ export class ServerComponent implements OnInit {
     });
   }
 
-  runVanilla(): void {
+  runServer(action?: string) {
+    if (!action)
+      return;
+
     this.loading = true;
+
+    switch (action) {
+      case 'vanilla': this.runVanilla(); return;
+      case 'zone': this.runZone(); return;
+    }
+  }
+
+  runVanilla(): void {
     this.serverService.runVanilla(this.port!).subscribe(() => {
       this.refresh();
       this.loading = false;
@@ -74,7 +86,6 @@ export class ServerComponent implements OnInit {
   }
 
   runZone(): void {
-    this.loading = true;
     this.serverService.runZone(this.port!).subscribe(() => {
       this.refresh();
       this.loading = false;
@@ -87,8 +98,7 @@ export class ServerComponent implements OnInit {
       nzOnOk: () => {
         this.loading = true;
         this.serverService.stop(this.port!).subscribe(() => {
-          this.refresh();
-          this.loading = false;
+          this.router.navigate(['/virtual-machine']);
         });
       }
     });
@@ -173,6 +183,9 @@ export class ServerComponent implements OnInit {
   }
 
   canGivePills(): boolean {
+    if (!this.serverInfo?.gametype || this.serverInfo.gametype.indexOf('confogl') !== -1)
+      return false;
+
     return this.hasPermissions('give-pills');
   }
 

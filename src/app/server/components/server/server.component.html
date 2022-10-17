@@ -9,24 +9,23 @@
         Servidor: <nz-tag nzColor="red"><b>NÃO INICIADO</b></nz-tag>
     </p>
 
-    <p>Como iniciar o servidor?</p>
-    <ol>
-        <li>Clique no botão abaixo</li>
-        <li>Copie o IP</li>
-        <li>Cole o IP no terminal do jogo</li>
-    </ol>
+    <p>O que você deseja fazer?</p>
+
+    <nz-radio-group [(ngModel)]="action">
+        <label nz-radio nzValue="vanilla" [nzDisabled]="loading">
+            Iniciar um servidor de Vanilla
+        </label>
+        <label nz-radio nzValue="zone" [nzDisabled]="loading">
+            Iniciar um servidor de Zone
+        </label>
+    </nz-radio-group>
 
     <nz-divider></nz-divider>
 
     <div class="buttons">
-        <button nz-button nzType="primary" (click)="runVanilla()" [nzLoading]="loading">
+        <button nz-button nzType="primary" (click)="runServer(action)" [nzLoading]="loading" [disabled]="!action">
             <i nz-icon nzType="play-circle" nzTheme="outline"></i>
-            {{ loading ? 'Iniciando...' : 'Iniciar servidor vanilla' }}
-        </button>
-
-        <button nz-button nzType="primary" (click)="runZone()" [nzLoading]="loading">
-            <i nz-icon nzType="play-circle" nzTheme="outline"></i>
-            {{ loading ? 'Iniciando...' : 'Iniciar servidor zone' }}
+            {{ loading ? 'Iniciando...' : 'Iniciar' }}
         </button>
     </div>
 </ng-container>
@@ -44,16 +43,6 @@
             <td>
                 <app-user-detail *ngIf="user" [user]="user"></app-user-detail>
                 <nz-skeleton *ngIf="!user" [nzActive]="true"></nz-skeleton>
-            </td>
-        </tr>
-        <tr *ngIf="server.startedAt">
-            <th>Iniciado em:</th>
-            <td>{{server.startedAt|date:'short'}}</td>
-        </tr>
-        <tr *ngIf="server.startedAt">
-            <th>Tempo iniciado:</th>
-            <td>
-                <app-elapsed-time [date]="server.startedAt"></app-elapsed-time>
             </td>
         </tr>
         <tr>

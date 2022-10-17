@@ -90,14 +90,9 @@ export class VirtualMachineComponent implements OnInit {
         return;
       }
 
-      if (action == 'vanilla') {
-        this.runVanilla(port.portNumber);
-        return;
-      }
-
-      if (action == 'zone') {
-        this.runZone(port.portNumber);
-        return;
+      switch (action) {
+        case 'vanilla': this.runVanilla(port.portNumber); return;
+        case 'zone': this.runZone(port.portNumber); return;
       }
 
       this.refresh();
