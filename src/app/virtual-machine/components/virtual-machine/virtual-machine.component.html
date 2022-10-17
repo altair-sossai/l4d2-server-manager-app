@@ -9,17 +9,25 @@
         Máquina virtual: <nz-tag nzColor="red"><b>DESLIGADA</b></nz-tag>
     </p>
 
-    <p>Como ligar o servidor?</p>
-    <ol>
-        <li>Clique no botão abaixo</li>
-        <li>Escolha uma das portas disponíveis</li>
-    </ol>
+    <p>O que você deseja fazer?</p>
+
+    <nz-radio-group [(ngModel)]="action">
+        <label nz-radio nzValue="power-on" [nzDisabled]="loading">
+            Apenas ligar a máquina
+        </label>
+        <label nz-radio nzValue="vanilla" [nzDisabled]="loading">
+            Iniciar um servidor de Vanilla
+        </label>
+        <label nz-radio nzValue="zone" [nzDisabled]="loading">
+            Iniciar um servidor de Zone
+        </label>
+    </nz-radio-group>
 
     <nz-divider></nz-divider>
 
-    <button nz-button nzType="primary" (click)="powerOn()" [nzLoading]="loading">
+    <button nz-button nzType="primary" (click)="powerOn(action)" [nzLoading]="loading" [disabled]="!action">
         <i nz-icon nzType="play-circle" nzTheme="outline"></i>
-        {{ loading ? 'Ligando...' : 'Ligar máquina virtual' }}
+        {{ loading ? 'Aguarde...' : 'Iniciar' }}
     </button>
 </ng-container>
 

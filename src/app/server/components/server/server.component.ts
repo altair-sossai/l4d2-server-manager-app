@@ -65,9 +65,9 @@ export class ServerComponent implements OnInit {
     });
   }
 
-  run(): void {
+  runVanilla(): void {
     this.loading = true;
-    this.serverService.run(this.port!).subscribe(() => {
+    this.serverService.runVanilla(this.port!).subscribe(() => {
       this.refresh();
       this.loading = false;
     });

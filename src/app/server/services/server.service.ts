@@ -27,7 +27,7 @@ export class ServerService {
         return this.http.get<Player[]>(`${environment.apiUrl}/api/server/${ip}:${port}/players`);
     }
 
-    run(port: number): Observable<void> {
+    runVanilla(port: number): Observable<void> {
         return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/run`, {});
     }
 
