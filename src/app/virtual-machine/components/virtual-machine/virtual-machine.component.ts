@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Port } from 'src/app/port/port';
 import { PortService } from 'src/app/port/services/port.service';
@@ -25,6 +26,7 @@ export class VirtualMachineComponent implements OnInit {
   constructor(
     private router: Router,
     private modalService: NzModalService,
+    private message: NzMessageService,
     private virtualMachineService: VirtualMachineService,
     private serverService: ServerService,
     private portService: PortService,
@@ -121,5 +123,9 @@ export class VirtualMachineComponent implements OnInit {
 
   canPowerOff(): boolean {
     return this.hasPermissions('power-off');
+  }
+
+  copied(): void {
+    this.message.info('Copiado para a área de transferência');
   }
 }

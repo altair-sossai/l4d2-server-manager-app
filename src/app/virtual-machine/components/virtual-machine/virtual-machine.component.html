@@ -43,7 +43,12 @@
     <table>
         <tr>
             <th>IP:</th>
-            <td>{{virtualMachine.ipAddress}}</td>
+            <td>
+                {{virtualMachine.ipAddress}}
+                <i nz-icon nzType="copy" nzTheme="outline" class="copy" ngxClipboard
+                    [cbContent]="virtualMachine.ipAddress" (cbOnSuccess)="copied()" nz-tooltip
+                    nzTooltipTitle="Clique para copiar"></i>
+            </td>
         </tr>
         <tr>
             <th>Ligada por:</th>
