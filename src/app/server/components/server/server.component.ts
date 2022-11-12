@@ -52,7 +52,7 @@ export class ServerComponent implements OnInit {
     this.serverService.get(this.port).subscribe(server => {
       this.server = server;
 
-      if (this.server.virtualMachine.isOff) {
+      if (!this.server.ipAddress) {
         this.router.navigate(['/virtual-machine']);
         return;
       }
