@@ -4,8 +4,17 @@
     </div>
     <div class="footer">
         <small>{{version}}</small>
-        <button nz-button nzType="primary" (click)="auth()">
-            <i nz-icon nzType="lock" nzTheme="outline"></i>
-        </button>
+
+        <div>
+            <a nz-button
+                href="https://wa.me/5519996988174?text=Olá, preciso de ajuda para ligar o servidor de Left 4 Dead"
+                target="_blank">
+                <span nz-icon nzType="whats-app" nzTheme="outline"></span>
+            </a>
+
+            <button nz-button nzType="primary" (click)="auth()">
+                <i nz-icon nzType="lock" nzTheme="outline"></i>
+            </button>
+        </div>
     </div>
 </div>
