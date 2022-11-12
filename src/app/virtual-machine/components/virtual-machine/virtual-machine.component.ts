@@ -69,7 +69,7 @@ export class VirtualMachineComponent implements OnInit {
 
   powerOff(): void {
     this.modalService.confirm({
-      nzTitle: 'Atenção, todos os servidores seram desligados, deseja continuar?',
+      nzTitle: 'Atenção, todos os servidores serão desligados, deseja continuar?',
       nzOnOk: () => {
         this.loading = true;
         this.virtualMachineService.powerOff().subscribe(() => {
