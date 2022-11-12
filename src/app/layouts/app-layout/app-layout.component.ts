@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-app-layout',
@@ -7,6 +8,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./app-layout.component.scss']
 })
 export class AppLayoutComponent {
+
+  version = environment.version;
+
   constructor(private router: Router) {
   }
 
