@@ -43,10 +43,6 @@ export class ServerService {
         return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/kick-all-players`, {});
     }
 
-    givePills(port: number): Observable<void> {
-        return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/give-pills`, {});
-    }
-
     openPort(port: number, command: OpenPortCommand): Observable<void> {
         return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/open-port`, command);
     }
