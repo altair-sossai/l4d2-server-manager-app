@@ -1,3 +1,5 @@
+import { Campaign } from "../enums/campaign.enum";
+
 export interface ServerInfo {
     addr: string | null;
     gameport: number;
@@ -11,7 +13,7 @@ export interface ServerInfo {
     players: number;
     maxPlayers: number;
     bots: number;
-    map: string | null;
+    map: Campaign;
     secure: boolean;
     dedicated: boolean;
     os: string | null;

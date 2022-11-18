@@ -23,6 +23,16 @@
         </label>
     </nz-radio-group>
 
+    <nz-form-item *ngIf="action && action != 'power-on'">
+        <nz-form-label nzRequired nzFor="campaign">Campanha</nz-form-label>
+        <nz-form-control [nzSpan]="24">
+            <nz-select [(ngModel)]="command.campaign" name="campaign" placeholder="Campanha" [nzDisabled]="loading">
+                <nz-option *ngFor="let campaign of Campaigns" [nzValue]="campaign" [nzLabel]="campaign | campaign">
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+
     <nz-divider></nz-divider>
 
     <div class="buttons">

@@ -32,6 +32,7 @@ import { LockedScreenComponent } from './auth/components/locked-screen/locked-sc
 import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
 import { PortDetailComponent } from './port/components/port-detail/port-detail.component';
 import { ServerComponent } from './server/components/server/server.component';
+import { CampaignPipe } from './server/pipes/campaign.pipe';
 import { PlayersPipe } from './server/pipes/players.pipe';
 import { ElapsedTimeComponent } from './shared/components/elapsed-time/elapsed-time.component';
 import { AppHttpInterceptor } from './shared/http-interceptor';
@@ -51,6 +52,7 @@ registerLocaleData(pt);
     ElapsedTimePipe,
     VirtualMachineStatusPipe,
     PlayersPipe,
+    CampaignPipe,
     VirtualMachineComponent,
     ServerComponent,
     AppLayoutComponent,

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Player } from 'src/app/player/player';
 import { environment } from 'src/environments/environment';
 import { OpenPortCommand } from '../commands/open-port.command';
+import { RunServerCommand } from '../commands/run-server.command';
 import { ServerInfo } from '../info/server-info';
 import { Server } from '../server';
 
@@ -27,12 +28,12 @@ export class ServerService {
         return this.http.get<Player[]>(`${environment.apiUrl}/api/server/${ip}:${port}/players`);
     }
 
-    runVanilla(port: number): Observable<void> {
-        return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/run`, {});
+    runVanilla(port: number, command: RunServerCommand): Observable<void> {
+        return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/run`, command);
     }
 
-    runZone(port: number): Observable<void> {
-        return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/run-zone`, {});
+    runZone(port: number, command: RunServerCommand): Observable<void> {
+        return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/run-zone`, command);
     }
 
     stop(port: number): Observable<void> {

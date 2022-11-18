@@ -6,6 +6,8 @@ import { Player } from 'src/app/player/player';
 import { UserService } from 'src/app/users/services/port.service';
 import { User } from 'src/app/users/user';
 import { PortStatus } from 'src/app/virtual-machine/enums/port-status.enum';
+import { RunServerCommand } from '../../commands/run-server.command';
+import { Campaign } from '../../enums/campaign.enum';
 import { ServerInfo } from '../../info/server-info';
 import { Server } from '../../server';
 import { ServerService } from '../../services/server.service';
@@ -25,7 +27,10 @@ export class ServerComponent implements OnInit {
   action?: string;
   loading = false;
 
+  command: RunServerCommand = new RunServerCommand();
+
   PortStatus = PortStatus;
+  Campaigns = Object.keys(Campaign).map(c => c as Campaign);
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -79,14 +84,14 @@ export class ServerComponent implements OnInit {
   }
 
   runVanilla(): void {
-    this.serverService.runVanilla(this.port!).subscribe(() => {
+    this.serverService.runVanilla(this.port!, this.command).subscribe(() => {
       this.refresh();
       this.loading = false;
     });
   }
 
   runZone(): void {
-    this.serverService.runZone(this.port!).subscribe(() => {
+    this.serverService.runZone(this.port!, this.command).subscribe(() => {
       this.refresh();
       this.loading = false;
     });

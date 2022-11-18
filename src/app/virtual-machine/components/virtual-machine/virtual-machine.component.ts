@@ -4,6 +4,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Port } from 'src/app/port/port';
 import { PortService } from 'src/app/port/services/port.service';
+import { RunServerCommand } from 'src/app/server/commands/run-server.command';
+import { Campaign } from 'src/app/server/enums/campaign.enum';
 import { ServerService } from 'src/app/server/services/server.service';
 import { UserService } from 'src/app/users/services/port.service';
 import { User } from 'src/app/users/user';
@@ -22,6 +24,10 @@ export class VirtualMachineComponent implements OnInit {
   user?: User;
   loading = false;
   action?: string;
+
+  command: RunServerCommand = new RunServerCommand();
+
+  Campaigns = Object.keys(Campaign).map(c => c as Campaign);
 
   constructor(
     private router: Router,
@@ -103,13 +109,13 @@ export class VirtualMachineComponent implements OnInit {
   }
 
   runVanilla(port: number): void {
-    this.serverService.runVanilla(port).subscribe(() => {
+    this.serverService.runVanilla(port, this.command).subscribe(() => {
       this.router.navigate(['server', port]);
     });
   }
 
   runZone(port: number): void {
-    this.serverService.runZone(port).subscribe(() => {
+    this.serverService.runZone(port, this.command).subscribe(() => {
       this.router.navigate(['server', port]);
     });
   }
