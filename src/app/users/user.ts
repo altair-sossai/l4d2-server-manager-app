@@ -1,6 +1,8 @@
+import { AccessLevel } from "./enums/access-level.enum";
+
 export interface User {
     id: string;
     displayName: string;
     steam: string;
-    admin: boolean;
+    accessLevel: AccessLevel;
 }
