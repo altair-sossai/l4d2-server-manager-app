@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Player } from 'src/app/player/player';
+import { Player } from 'src/app/modules/server-manager/player/player';
 import { environment } from 'src/environments/environment';
 import { OpenPortCommand } from '../commands/open-port.command';
 import { RunServerCommand } from '../commands/run-server.command';

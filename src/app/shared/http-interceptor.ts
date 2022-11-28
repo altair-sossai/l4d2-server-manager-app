@@ -6,8 +6,7 @@ import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AuthService } from '../auth/services/auth.service';
-
+import { AuthService } from '../modules/auth/services/auth.service';
 
 @Injectable()
 export class AppHttpInterceptor implements HttpInterceptor {
