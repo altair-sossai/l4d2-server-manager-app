@@ -1,0 +1,22 @@
+<h3>Jogadores suspeitos</h3>
+
+<nz-divider></nz-divider>
+
+<nz-skeleton [nzActive]="true" *ngIf="!suspectedPlayers"></nz-skeleton>
+
+<ng-container *ngIf="suspectedPlayers">
+    <button nz-button nzType="primary" nzBlock (click)="add()">Adicionar jogador suspeito</button>
+
+    <div class="container">
+        <app-suspected-player *ngFor="let suspectedPlayer of suspectedPlayers" [suspectedPlayer]="suspectedPlayer">
+
+            <ng-container buttons>
+                <button nz-button nzType="default" nzDanger nzShape="circle" nz-tooltip nzTooltipTitle="Excluir"
+                    (click)="delete(suspectedPlayer.steamId!)">
+                    <i nz-icon nzType="delete"></i>
+                </button>
+            </ng-container>
+
+        </app-suspected-player>
+    </div>
+</ng-container>
