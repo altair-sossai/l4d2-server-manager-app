@@ -1,7 +1,7 @@
 .card {
     display: grid;
     grid-template-rows: 184px auto auto auto;
-    width: 200px;
+    width: 220px;
     min-height: 315px;
     padding: 5px;
     margin: 10px;
@@ -21,10 +21,7 @@
     table {
         align-self: start;
         margin-top: 10px;
-    }
-
-    tr {
-        font-size: 12px;
+        font-size: 11px;
     }
 
     th {

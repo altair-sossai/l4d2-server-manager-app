@@ -33,16 +33,16 @@ export class SuspectedPlayersComponent implements OnInit {
       return;
 
     const command = new SuspectedPlayerCommand();
-    command.suspectedPlayer = suspectedPlayer;
+    command.account = suspectedPlayer;
 
     this.suspectedPlayerService.post(command).subscribe(() => this.refresh());
   }
 
-  delete(steamId: string): void {
+  delete(communityId: number): void {
     this.modalService.confirm({
       nzTitle: 'Deseja realmente excluir?',
       nzOnOk: () => {
-        this.suspectedPlayerService.delete(steamId).subscribe(_ => {
+        this.suspectedPlayerService.delete(communityId).subscribe(_ => {
           this.messageService.create('success', 'Excluido com sucesso');
           this.refresh();
         });

@@ -17,15 +17,15 @@ export class SuspectedPlayerService {
         return this.http.get<SuspectedPlayer[]>(`${environment.apiUrl}/api/suspected-players`);
     }
 
-    find(steamId: string): Observable<SuspectedPlayer> {
-        return this.http.get<SuspectedPlayer>(`${environment.apiUrl}/api/suspected-players/${steamId}`);
+    find(communityId: number): Observable<SuspectedPlayer> {
+        return this.http.get<SuspectedPlayer>(`${environment.apiUrl}/api/suspected-players/${communityId}`);
     }
 
     post(command: SuspectedPlayerCommand): Observable<SuspectedPlayer> {
         return this.http.post<SuspectedPlayer>(`${environment.apiUrl}/api/suspected-players`, command);
     }
 
-    delete(steamId: string): Observable<void> {
-        return this.http.delete<void>(`${environment.apiUrl}/api/suspected-players/${steamId}`);
+    delete(communityId: number): Observable<void> {
+        return this.http.delete<void>(`${environment.apiUrl}/api/suspected-players/${communityId}`);
     }
 }

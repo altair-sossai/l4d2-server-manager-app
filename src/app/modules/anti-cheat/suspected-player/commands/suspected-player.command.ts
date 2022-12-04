@@ -1,3 +1,3 @@
 export class SuspectedPlayerCommand {
-    public suspectedPlayer?: string | null;
+    public account?: string | null;
 }
