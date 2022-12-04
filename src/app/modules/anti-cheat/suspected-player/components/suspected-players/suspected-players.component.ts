@@ -38,7 +38,7 @@ export class SuspectedPlayersComponent implements OnInit {
     this.suspectedPlayerService.post(command).subscribe(() => this.refresh());
   }
 
-  delete(communityId: number): void {
+  delete(communityId: string): void {
     this.modalService.confirm({
       nzTitle: 'Deseja realmente excluir?',
       nzOnOk: () => {

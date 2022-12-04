@@ -1,5 +1,5 @@
 export interface SuspectedPlayer {
-    communityId: number;
+    communityId: string;
     steamId: string | null;
     steam3: string | null;
     name: string | null;

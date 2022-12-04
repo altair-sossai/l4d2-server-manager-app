@@ -17,7 +17,7 @@ export class SuspectedPlayerService {
         return this.http.get<SuspectedPlayer[]>(`${environment.apiUrl}/api/suspected-players`);
     }
 
-    find(communityId: number): Observable<SuspectedPlayer> {
+    find(communityId: string): Observable<SuspectedPlayer> {
         return this.http.get<SuspectedPlayer>(`${environment.apiUrl}/api/suspected-players/${communityId}`);
     }
 
@@ -25,7 +25,7 @@ export class SuspectedPlayerService {
         return this.http.post<SuspectedPlayer>(`${environment.apiUrl}/api/suspected-players`, command);
     }
 
-    delete(communityId: number): Observable<void> {
+    delete(communityId: string): Observable<void> {
         return this.http.delete<void>(`${environment.apiUrl}/api/suspected-players/${communityId}`);
     }
 }
