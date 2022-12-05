@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { UserService } from 'src/app/modules/auth/users/services/port.service';
+import { UserService } from 'src/app/modules/auth/users/services/user.service';
 import { User } from 'src/app/modules/auth/users/user';
 import { Player } from 'src/app/modules/server-manager/player/player';
 import { PortStatus } from '../../../virtual-machine/enums/port-status.enum';

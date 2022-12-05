@@ -5,4 +5,5 @@ export interface User {
     displayName: string;
     steam: string;
     accessLevel: AccessLevel;
+    accessLevels: AccessLevel[];
 }

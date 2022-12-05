@@ -29,6 +29,8 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
+import { SuspectedPlayerComponent } from './modules/anti-cheat/suspected-player/components/suspected-player/suspected-player.component';
+import { SuspectedPlayersComponent } from './modules/anti-cheat/suspected-player/components/suspected-players/suspected-players.component';
 import { LockedScreenComponent } from './modules/auth/components/locked-screen/locked-screen.component';
 import { UserDetailComponent } from './modules/auth/users/components/user-detail/user-detail.component';
 import { PortDetailComponent } from './modules/server-manager/port/components/port-detail/port-detail.component';
@@ -58,7 +60,9 @@ registerLocaleData(pt);
     AppLayoutComponent,
     PortDetailComponent,
     UserDetailComponent,
-    ElapsedTimeComponent
+    ElapsedTimeComponent,
+    SuspectedPlayerComponent,
+    SuspectedPlayersComponent
   ],
   imports: [
     BrowserModule,
