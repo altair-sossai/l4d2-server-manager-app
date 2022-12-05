@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { SuspectedPlayerSecretService } from '../../../suspected-player-secret/services/suspected-player-secret.service';
 import { SuspectedPlayerCommand } from '../../commands/suspected-player.command';
 import { SuspectedPlayerService } from '../../services/suspected-player.service';
 import { SuspectedPlayer } from '../../suspected-player';
@@ -15,7 +16,8 @@ export class SuspectedPlayersComponent implements OnInit {
 
   constructor(private modalService: NzModalService,
     private messageService: NzMessageService,
-    private suspectedPlayerService: SuspectedPlayerService) {
+    private suspectedPlayerService: SuspectedPlayerService,
+    private suspectedPlayerSecretService: SuspectedPlayerSecretService) {
   }
 
   ngOnInit(): void {
@@ -36,6 +38,18 @@ export class SuspectedPlayersComponent implements OnInit {
     command.account = suspectedPlayer;
 
     this.suspectedPlayerService.post(command).subscribe(() => this.refresh());
+  }
+
+  deleteSecret(communityId: string): void {
+    this.modalService.confirm({
+      nzTitle: 'Deseja realmente excluir a secret do usuário?',
+      nzOnOk: () => {
+        this.suspectedPlayerSecretService.delete(communityId).subscribe(_ => {
+          this.messageService.create('success', 'Excluido com sucesso');
+          this.refresh();
+        });
+      }
+    });
   }
 
   delete(communityId: string): void {
