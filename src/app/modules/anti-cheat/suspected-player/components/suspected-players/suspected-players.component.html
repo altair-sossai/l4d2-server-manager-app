@@ -11,6 +11,11 @@
         <app-suspected-player *ngFor="let suspectedPlayer of suspectedPlayers" [suspectedPlayer]="suspectedPlayer">
 
             <ng-container buttons>
+                <a [routerLink]="['/suspected-players', suspectedPlayer.communityId, 'details']" nz-button
+                    nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Detalhes">
+                    <span nz-icon nzType="eye" nzTheme="outline"></span>
+                </a>
+
                 <button nz-button nzType="default" nzDanger nzShape="circle" nz-tooltip nzTooltipTitle="Excluir secret"
                     (click)="deleteSecret(suspectedPlayer.communityId!)">
                     <span nz-icon nzType="disconnect" nzTheme="outline"></span>

@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { LightgalleryModule } from 'lightgallery/angular/13';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
@@ -22,6 +23,7 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { ClipboardModule } from 'ngx-clipboard';
@@ -29,6 +31,7 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
+import { SuspectedPlayerDetailsComponent } from './modules/anti-cheat/suspected-player/components/suspected-player-details/suspected-player-details.component';
 import { SuspectedPlayerComponent } from './modules/anti-cheat/suspected-player/components/suspected-player/suspected-player.component';
 import { SuspectedPlayersComponent } from './modules/anti-cheat/suspected-player/components/suspected-players/suspected-players.component';
 import { LockedScreenComponent } from './modules/auth/components/locked-screen/locked-screen.component';
@@ -62,7 +65,8 @@ registerLocaleData(pt);
     UserDetailComponent,
     ElapsedTimeComponent,
     SuspectedPlayerComponent,
-    SuspectedPlayersComponent
+    SuspectedPlayersComponent,
+    SuspectedPlayerDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -88,6 +92,8 @@ registerLocaleData(pt);
     NzTagModule,
     NzToolTipModule,
     NzRadioModule,
+    NzTabsModule,
+    LightgalleryModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000'
