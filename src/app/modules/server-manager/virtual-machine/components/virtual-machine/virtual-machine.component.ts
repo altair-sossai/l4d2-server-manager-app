@@ -101,6 +101,7 @@ export class VirtualMachineComponent implements OnInit {
       switch (action) {
         case 'vanilla': this.runVanilla(port.portNumber); return;
         case 'zone': this.runZone(port.portNumber); return;
+        case 'dunasa': this.runDunasa(port.portNumber); return;
       }
 
       this.refresh();
@@ -110,14 +111,24 @@ export class VirtualMachineComponent implements OnInit {
 
   runVanilla(port: number): void {
     this.serverService.runVanilla(port, this.command).subscribe(() => {
-      this.router.navigate(['server', port]);
+      setTimeout(() => this.goToServer(port), 5000);
     });
   }
 
   runZone(port: number): void {
     this.serverService.runZone(port, this.command).subscribe(() => {
-      this.router.navigate(['server', port]);
+      setTimeout(() => this.goToServer(port), 5000);
     });
+  }
+
+  runDunasa(port: number): void {
+    this.serverService.runDunasa(port, this.command).subscribe(() => {
+      setTimeout(() => this.goToServer(port), 5000);
+    });
+  }
+
+  goToServer(port: number) {
+    this.router.navigate(['server', port]);
   }
 
   hasPermissions(permission: string): boolean {

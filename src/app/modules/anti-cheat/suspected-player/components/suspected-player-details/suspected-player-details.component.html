@@ -1,0 +1,48 @@
+<h3>Detalhes do jogador</h3>
+
+<nz-divider></nz-divider>
+
+<nz-skeleton [nzActive]="true" *ngIf="!suspectedPlayer"></nz-skeleton>
+
+<div *ngIf="suspectedPlayer" class="container">
+    <app-suspected-player [suspectedPlayer]="suspectedPlayer!">
+        <ng-container details>
+            <tr *ngIf="ping" class="text-left">
+                <th>Último ping:</th>
+                <td>
+                    <app-elapsed-time [date]="ping.timestamp"></app-elapsed-time>
+                    <ng-container *ngIf="!ping.focused"> (minimizado)</ng-container>
+                </td>
+            </tr>
+        </ng-container>
+    </app-suspected-player>
+
+    <nz-tabset>
+        <nz-tab nzTitle="Screenshots">
+            <nz-skeleton [nzActive]="true" *ngIf="!screenshots"></nz-skeleton>
+            <lightgallery *ngIf="screenshots && screenshots.length">
+                <a *ngFor="let screenshot of screenshots" [href]="screenshot.url">
+                    <img [src]="screenshot.url" [alt]="screenshot.createdOn | date : 'short'" class="thumbnail" />
+                </a>
+            </lightgallery>
+            <nz-empty *ngIf="screenshots && !screenshots.length"></nz-empty>
+        </nz-tab>
+        <nz-tab nzTitle="Processos">Content of Tab Pane 2</nz-tab>
+    </nz-tabset>
+</div>
+
+<nz-divider></nz-divider>
+
+<div class="buttons">
+    <button nz-button nzType="default" (click)="refresh()">
+        <i nz-icon nzType="reload" nzTheme="outline"></i> Atualizar
+    </button>
+
+    <button nz-button nzType="primary" nzDanger (click)="deleteAllScreenshots()">
+        <span nz-icon nzType="delete" nzTheme="outline"></span> Excluir screenshots
+    </button>
+</div>
+
+<a [routerLink]="['/suspected-players']" class="back">
+    <i nz-icon nzType="arrow-left" nzTheme="outline"></i> Voltar para a lista de suspeitos
+</a>
