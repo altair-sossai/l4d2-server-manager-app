@@ -40,9 +40,9 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Title</th>
-                            <th>Filename</th>
-                            <th>EXE name</th>
+                            <th>Window title</th>
+                            <th>File / Path</th>
+
                             <th>Module</th>
                             <th>Company</th>
                             <th>Description</th>
@@ -54,8 +54,11 @@
                         <tr *ngFor="let process of processes">
                             <td>{{process.processName}}</td>
                             <td>{{process.windowTitle}}</td>
-                            <td>{{process.originalFilename}}</td>
-                            <td>{{process.fileName}}</td>
+                            <td>
+                                {{process.originalFilename}}<br/>
+                                {{process.fileName}}
+                            </td>
+
                             <td>{{process.module}}</td>
                             <td>{{process.companyName}}</td>
                             <td class="nowrap">{{process.fileDescription}}</td>
