@@ -21,6 +21,7 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
   public suspectedPlayer?: SuspectedPlayer;
   public ping?: SuspectedPlayerPing;
   public screenshots?: ScreenshotResult[];
+  public screenshotPage = { skip: 0, take: 500, pageSize: 500, eof: false };
 
   constructor(private route: ActivatedRoute,
     private modalService: NzModalService,
@@ -47,10 +48,12 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
     this.suspectedPlayer = undefined;
     this.ping = undefined;
     this.screenshots = undefined;
+    this.screenshotPage.skip = 0;
+    this.screenshotPage.eof = false;
 
     this.suspectedPlayerService.find(this.communityId).subscribe(suspectedPlayer => this.suspectedPlayer = suspectedPlayer);
     this.suspectedPlayerPingService.get(this.communityId).subscribe(ping => this.ping = ping);
-    this.suspectedPlayerScreenshotService.get(this.communityId).subscribe(screenshots => this.screenshots = screenshots);
+    this.suspectedPlayerScreenshotService.get(this.communityId, this.screenshotPage.skip, this.screenshotPage.take).subscribe(screenshots => this.screenshots = screenshots);
   }
 
   refreshPing(): void {
@@ -58,6 +61,17 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
       return;
 
     this.suspectedPlayerPingService.get(this.communityId).subscribe(ping => this.ping = ping);
+  }
+
+  loadMoreScreenshots(): void {
+    if (!this.communityId)
+      return;
+
+    this.screenshotPage.skip += this.screenshotPage.pageSize;
+    this.suspectedPlayerScreenshotService.get(this.communityId, this.screenshotPage.skip, this.screenshotPage.take).subscribe(screenshots => {
+      this.screenshotPage.eof = screenshots.length === 0;
+      this.screenshots?.push(...screenshots);
+    });
   }
 
   deleteAllScreenshots(): void {

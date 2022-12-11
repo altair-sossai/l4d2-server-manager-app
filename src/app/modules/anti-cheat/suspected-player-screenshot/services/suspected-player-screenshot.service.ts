@@ -12,8 +12,8 @@ export class SuspectedPlayerScreenshotService {
     constructor(private http: HttpClient) {
     }
 
-    get(communityId: string): Observable<ScreenshotResult[]> {
-        return this.http.get<ScreenshotResult[]>(`${environment.apiUrl}/api/suspected-players-screenshot/${communityId}`);
+    get(communityId: string, skip: number, take: number): Observable<ScreenshotResult[]> {
+        return this.http.get<ScreenshotResult[]>(`${environment.apiUrl}/api/suspected-players-screenshot/${communityId}`, { params: { skip, take } });
     }
 
     delete(communityId: string): Observable<void> {

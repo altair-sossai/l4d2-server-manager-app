@@ -20,11 +20,18 @@
     <nz-tabset>
         <nz-tab nzTitle="Screenshots">
             <nz-skeleton [nzActive]="true" *ngIf="!screenshots"></nz-skeleton>
-            <lightgallery *ngIf="screenshots && screenshots.length">
-                <a *ngFor="let screenshot of screenshots" [href]="screenshot.url">
-                    <img [src]="screenshot.url" [alt]="screenshot.createdOn | date : 'short'" class="thumbnail" />
-                </a>
-            </lightgallery>
+            <div class="lightgallery">
+                <lightgallery *ngIf="screenshots && screenshots.length">
+                    <a *ngFor="let screenshot of screenshots" [href]="screenshot.url">
+                        <img [src]="screenshot.url" [alt]="screenshot.createdOn | date : 'short'" class="thumbnail" />
+                    </a>
+                </lightgallery>
+            </div>
+
+            <a nz-button nzBlock type="button" nzType="link" style="margin-top: 20px"
+                *ngIf="screenshots && screenshots.length && !screenshotPage.eof" (click)="loadMoreScreenshots()">
+                Ver mais
+            </a>
             <nz-empty *ngIf="screenshots && !screenshots.length"></nz-empty>
         </nz-tab>
         <nz-tab nzTitle="Processos">Content of Tab Pane 2</nz-tab>
