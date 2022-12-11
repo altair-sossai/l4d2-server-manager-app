@@ -34,7 +34,39 @@
             </a>
             <nz-empty *ngIf="screenshots && !screenshots.length"></nz-empty>
         </nz-tab>
-        <nz-tab nzTitle="Processos">Content of Tab Pane 2</nz-tab>
+        <nz-tab nzTitle="Processos">
+            <div class="process">
+                <table *ngIf="processes && processes.length">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Title</th>
+                            <th>Filename</th>
+                            <th>EXE name</th>
+                            <th>Module</th>
+                            <th>Company</th>
+                            <th>Description</th>
+                            <th>Version</th>
+                            <th>Product name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let process of processes">
+                            <td>{{process.processName}}</td>
+                            <td>{{process.windowTitle}}</td>
+                            <td>{{process.originalFilename}}</td>
+                            <td>{{process.fileName}}</td>
+                            <td>{{process.module}}</td>
+                            <td>{{process.companyName}}</td>
+                            <td class="nowrap">{{process.fileDescription}}</td>
+                            <td class="nowrap">{{process.fileVersion}}</td>
+                            <td class="nowrap">{{process.productName}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <nz-empty *ngIf="processes && !processes.length"></nz-empty>
+        </nz-tab>
     </nz-tabset>
 </div>
 

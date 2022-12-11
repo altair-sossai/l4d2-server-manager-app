@@ -54,3 +54,31 @@ nz-tabset {
     height: 50vh;
     overflow-y: auto;
 }
+
+.process {
+    overflow-y: scroll;
+
+    table {
+        font-size: 12px;
+        width: 100%;
+    }
+
+    th,
+    td {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        max-width: 400px;
+        min-width: 200px;
+        border: 1px solid #999;
+        padding: 10px;
+        position: relative;
+    }
+
+    .nowrap {
+        white-space: nowrap;
+    }
+
+    th {
+        background-color: #fff;
+    }
+}
