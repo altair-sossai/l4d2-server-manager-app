@@ -111,19 +111,19 @@ export class VirtualMachineComponent implements OnInit {
 
   runVanilla(port: number): void {
     this.serverService.runVanilla(port, this.command).subscribe(() => {
-      setTimeout(() => this.goToServer(port), 5000);
+      this.goToServer(port);
     });
   }
 
   runZone(port: number): void {
     this.serverService.runZone(port, this.command).subscribe(() => {
-      setTimeout(() => this.goToServer(port), 5000);
+      this.goToServer(port);
     });
   }
 
   runDunasa(port: number): void {
     this.serverService.runDunasa(port, this.command).subscribe(() => {
-      setTimeout(() => this.goToServer(port), 5000);
+      this.goToServer(port);
     });
   }
 
