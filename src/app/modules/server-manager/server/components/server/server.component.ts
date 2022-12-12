@@ -80,7 +80,6 @@ export class ServerComponent implements OnInit {
     switch (action) {
       case 'vanilla': this.runVanilla(); return;
       case 'zone': this.runZone(); return;
-      case 'dunasa': this.runDunasa(); return;
     }
   }
 
@@ -93,13 +92,6 @@ export class ServerComponent implements OnInit {
 
   runZone(): void {
     this.serverService.runZone(this.port!, this.command).subscribe(() => {
-      this.refresh();
-      this.loading = false;
-    });
-  }
-
-  runDunasa(): void {
-    this.serverService.runDunasa(this.port!, this.command).subscribe(() => {
       this.refresh();
       this.loading = false;
     });

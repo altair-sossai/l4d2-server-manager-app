@@ -101,7 +101,6 @@ export class VirtualMachineComponent implements OnInit {
       switch (action) {
         case 'vanilla': this.runVanilla(port.portNumber); return;
         case 'zone': this.runZone(port.portNumber); return;
-        case 'dunasa': this.runDunasa(port.portNumber); return;
       }
 
       this.refresh();
@@ -117,12 +116,6 @@ export class VirtualMachineComponent implements OnInit {
 
   runZone(port: number): void {
     this.serverService.runZone(port, this.command).subscribe(() => {
-      this.goToServer(port);
-    });
-  }
-
-  runDunasa(port: number): void {
-    this.serverService.runDunasa(port, this.command).subscribe(() => {
       this.goToServer(port);
     });
   }

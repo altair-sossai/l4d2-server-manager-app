@@ -36,10 +36,6 @@ export class ServerService {
         return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/run-zone`, command);
     }
 
-    runDunasa(port: number, command: RunServerCommand): Observable<void> {
-        return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/run-dunasa`, command);
-    }
-
     stop(port: number): Observable<void> {
         return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/stop`, {});
     }
