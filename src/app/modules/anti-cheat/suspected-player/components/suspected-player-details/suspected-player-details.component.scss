@@ -1,5 +1,8 @@
-h3 {
-    text-align: center;
+:host {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-rows: auto 1fr auto;
 }
 
 nz-divider {
@@ -10,75 +13,67 @@ nz-divider {
     text-align: left;
 }
 
-.container {
+.header {
+    h3 {
+        text-align: center;
+    }
+}
+
+.body {
     display: grid;
+    gap: 15px;
     grid-template-columns: auto 1fr;
-}
 
-@media (max-width: 550px) {
-    .container {
-        grid-template-columns: 1fr;
+    nz-tabset {
+        margin: 10px;
+        padding: 10px 20px;
+        border: 1px solid #b3b3b3;
+        border-radius: 10px;
+        box-shadow: 1px 1px 4px #b3b3b3;
+        background-color: white;
+    }
+
+    .gallery {
+        display: grid;
+        grid-template-rows: 1fr auto;
+        gap: 10px;
+
+        .body {
+            display: flex;
+        }
+
+        lightgallery {
+            max-height: 530px;
+            display: flex;
+            flex-wrap: wrap;
+            overflow-y: scroll;
+
+            .a,
+            img {
+                margin: 0;
+                padding: 0;
+            }
+
+            img {
+                width: 200px;
+                margin: 5px;
+            }
+        }
     }
 }
 
-nz-tabset {
-    margin: 10px;
-    padding: 10px 20px;
-    border: 1px solid #b3b3b3;
-    border-radius: 10px;
-    box-shadow: 1px 1px 4px #b3b3b3;
-    background-color: white;
-}
+.footer {
+    .buttons {
+        display: flex;
+        flex-wrap: wrap;
 
-.thumbnail {
-    max-width: 200px;
-    margin: 5px;
-}
-
-.buttons,
-.ports {
-    display: flex;
-    flex-wrap: wrap;
-
-    button {
-        margin: 5px;
-    }
-}
-
-.back {
-    margin-top: 20px;
-    display: block;
-}
-
-.lightgallery {
-    height: 50vh;
-    overflow-y: auto;
-}
-
-.process {
-    overflow-y: scroll;
-
-    table {
-        font-size: 12px;
-        width: 100%;
+        button {
+            margin: 5px;
+        }
     }
 
-    th,
-    td {
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        max-width: 400px;
-        min-width: 200px;
-        border: 1px solid #999;
-        padding: 10px;
-        position: relative;
-    }
-
-    .nowrap {
-        white-space: nowrap;
-    }
-
-    th {
-        background-color: #fff;
+    a {
+        margin-top: 20px;
+        display: block;
     }
 }

@@ -37,7 +37,7 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.communityId = this.route.snapshot.paramMap.get('communityId')!;
-    this.interval = setInterval(() => this.refreshPing(), 5 * 1000);
+    this.interval = setInterval(() => this.refreshPing(), 15 * 1000);
 
     this.refresh();
   }
@@ -88,6 +88,16 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
       nzOnOk: () => {
         this.screenshots = undefined;
         this.suspectedPlayerScreenshotService.delete(this.communityId!).subscribe(() => this.refresh());
+      }
+    });
+  }
+
+  deleteAllProcesses(): void {
+    this.modalService.confirm({
+      nzTitle: 'Atenção, todos os processos do jogador serão apagados, deseja continuar?',
+      nzOnOk: () => {
+        this.screenshots = undefined;
+        this.suspectedPlayerProcessService.delete(this.communityId!).subscribe(() => this.refresh());
       }
     });
   }

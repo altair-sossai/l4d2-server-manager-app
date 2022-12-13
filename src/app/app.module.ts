@@ -23,6 +23,7 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
+import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
@@ -93,6 +94,7 @@ registerLocaleData(pt);
     NzToolTipModule,
     NzRadioModule,
     NzTabsModule,
+    NzTableModule,
     LightgalleryModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
