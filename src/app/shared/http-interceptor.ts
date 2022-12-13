@@ -32,7 +32,7 @@ export class AppHttpInterceptor implements HttpInterceptor {
           if (error.status === 401) {
             this.router.navigate(['/auth']);
           }
-          else {
+          else if (error.status !== 404) {
             this.message.create('error', 'Ocorreu um erro ao executar a operação');
           }
 

@@ -15,4 +15,8 @@ export class SuspectedPlayerProcessService {
     get(communityId: string): Observable<SuspectedPlayerProcess[]> {
         return this.http.get<SuspectedPlayerProcess[]>(`${environment.apiUrl}/api/suspected-players-process/${communityId}`);
     }
+
+    delete(communityId: string): Observable<void> {
+        return this.http.delete<void>(`${environment.apiUrl}/api/suspected-players-process/${communityId}`);
+    }
 }

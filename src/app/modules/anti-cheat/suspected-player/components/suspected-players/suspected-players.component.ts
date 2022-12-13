@@ -37,16 +37,24 @@ export class SuspectedPlayersComponent implements OnInit {
     const command = new SuspectedPlayerCommand();
     command.account = suspectedPlayer;
 
-    this.suspectedPlayerService.post(command).subscribe(() => this.refresh());
+    this.suspectedPlayers = undefined;
+    this.suspectedPlayerService.post(command).subscribe({
+      next: () => this.refresh(),
+      error: () => this.refresh()
+    });
   }
 
   deleteSecret(communityId: string): void {
     this.modalService.confirm({
       nzTitle: 'Deseja realmente excluir a secret do usuário?',
       nzOnOk: () => {
-        this.suspectedPlayerSecretService.delete(communityId).subscribe(_ => {
-          this.messageService.create('success', 'Excluido com sucesso');
-          this.refresh();
+        this.suspectedPlayers = undefined;
+        this.suspectedPlayerSecretService.delete(communityId).subscribe({
+          next: () => {
+            this.messageService.create('success', 'Excluido com sucesso');
+            this.refresh();
+          },
+          error: () => this.refresh()
         });
       }
     });
@@ -56,9 +64,13 @@ export class SuspectedPlayersComponent implements OnInit {
     this.modalService.confirm({
       nzTitle: 'Deseja realmente excluir?',
       nzOnOk: () => {
-        this.suspectedPlayerService.delete(communityId).subscribe(_ => {
-          this.messageService.create('success', 'Excluido com sucesso');
-          this.refresh();
+        this.suspectedPlayers = undefined;
+        this.suspectedPlayerService.delete(communityId).subscribe({
+          next: () => {
+            this.messageService.create('success', 'Excluido com sucesso');
+            this.refresh();
+          },
+          error: () => this.refresh()
         });
       }
     });
