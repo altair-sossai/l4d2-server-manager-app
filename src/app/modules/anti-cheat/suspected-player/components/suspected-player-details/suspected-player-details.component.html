@@ -23,7 +23,7 @@
             <nz-skeleton [nzActive]="true" *ngIf="!screenshots"></nz-skeleton>
             <nz-empty *ngIf="screenshots && !screenshots.length"></nz-empty>
             <div class="gallery" *ngIf="screenshots && screenshots.length">
-                <div class="body">
+                <div class="gallery-body">
                     <lightgallery>
                         <a *ngFor="let screenshot of screenshots" [href]="screenshot.url">
                             <img [src]="screenshot.url" [alt]="screenshot.createdOn | date : 'short'" />
@@ -41,10 +41,10 @@
             <nz-skeleton [nzActive]="true" *ngIf="!processes"></nz-skeleton>
             <nz-empty *ngIf="processes && !processes.length"></nz-empty>
             <nz-table #processesTable [nzData]="processes" [nzFrontPagination]="false" nzSize="small"
-                *ngIf="processes && processes.length">
+                [nzScroll]="{ x: '100%' }" *ngIf="processes && processes.length">
                 <thead>
                     <tr>
-                        <th>Process name</th>
+                        <th nzLeft>Process name</th>
                         <th>Window title</th>
                         <th>Timestamp</th>
                         <th>Actions</th>
@@ -52,7 +52,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let process of processesTable.data">
-                        <td>{{process.processName}}</td>
+                        <td nzLeft>{{process.processName}}</td>
                         <td>{{process.windowTitle}}</td>
                         <td>{{process.timestamp | date : 'short'}}</td>
                         <td>

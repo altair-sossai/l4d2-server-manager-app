@@ -38,7 +38,7 @@ nz-divider {
         grid-template-rows: 1fr auto;
         gap: 10px;
 
-        .body {
+        .gallery-body {
             display: flex;
         }
 
@@ -59,6 +59,12 @@ nz-divider {
                 margin: 5px;
             }
         }
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .body {
+        grid-template-columns: 1fr;
     }
 }
 
