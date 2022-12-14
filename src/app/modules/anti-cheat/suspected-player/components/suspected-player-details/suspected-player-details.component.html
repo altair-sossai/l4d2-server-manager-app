@@ -19,25 +19,6 @@
     </app-suspected-player>
 
     <nz-tabset>
-        <nz-tab nzTitle="Processos">
-            <nz-skeleton [nzActive]="true" *ngIf="!processes"></nz-skeleton>
-            <nz-empty *ngIf="processes && !processes.length"></nz-empty>
-            <nz-table #processesTable [nzData]="processes" [nzFrontPagination]="false" nzSize="small"
-                *ngIf="processes && processes.length">
-                <thead>
-                    <tr>
-                        <th>Process name</th>
-                        <th>Window title</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let process of processesTable.data">
-                        <td>{{process.processName}}</td>
-                        <td>{{process.windowTitle}}</td>
-                    </tr>
-                </tbody>
-            </nz-table>
-        </nz-tab>
         <nz-tab nzTitle="Screenshots">
             <nz-skeleton [nzActive]="true" *ngIf="!screenshots"></nz-skeleton>
             <nz-empty *ngIf="screenshots && !screenshots.length"></nz-empty>
@@ -55,6 +36,31 @@
                     Ver mais
                 </a>
             </div>
+        </nz-tab>
+        <nz-tab nzTitle="Processos">
+            <nz-skeleton [nzActive]="true" *ngIf="!processes"></nz-skeleton>
+            <nz-empty *ngIf="processes && !processes.length"></nz-empty>
+            <nz-table #processesTable [nzData]="processes" [nzFrontPagination]="false" nzSize="small"
+                *ngIf="processes && processes.length">
+                <thead>
+                    <tr>
+                        <th>Process name</th>
+                        <th>Window title</th>
+                        <th>Timestamp</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let process of processesTable.data">
+                        <td>{{process.processName}}</td>
+                        <td>{{process.windowTitle}}</td>
+                        <td>{{process.timestamp | date : 'short'}}</td>
+                        <td>
+                            <a (click)="showProcessDetails(process)">Details</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
         </nz-tab>
     </nz-tabset>
 </div>

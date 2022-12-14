@@ -33,6 +33,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
 import { SuspectedPlayerDetailsComponent } from './modules/anti-cheat/suspected-player/components/suspected-player-details/suspected-player-details.component';
+import { SuspectedPlayerProcessDetailComponent } from './modules/anti-cheat/suspected-player/components/suspected-player-process-detail/suspected-player-process-detail.component';
 import { SuspectedPlayerComponent } from './modules/anti-cheat/suspected-player/components/suspected-player/suspected-player.component';
 import { SuspectedPlayersComponent } from './modules/anti-cheat/suspected-player/components/suspected-players/suspected-players.component';
 import { LockedScreenComponent } from './modules/auth/components/locked-screen/locked-screen.component';
@@ -67,7 +68,8 @@ registerLocaleData(pt);
     ElapsedTimeComponent,
     SuspectedPlayerComponent,
     SuspectedPlayersComponent,
-    SuspectedPlayerDetailsComponent
+    SuspectedPlayerDetailsComponent,
+    SuspectedPlayerProcessDetailComponent
   ],
   imports: [
     BrowserModule,

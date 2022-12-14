@@ -9,6 +9,7 @@ import { ScreenshotResult } from '../../../suspected-player-screenshot/results/s
 import { SuspectedPlayerScreenshotService } from '../../../suspected-player-screenshot/services/suspected-player-screenshot.service';
 import { SuspectedPlayerService } from '../../services/suspected-player.service';
 import { SuspectedPlayer } from '../../suspected-player';
+import { SuspectedPlayerProcessDetailComponent } from '../suspected-player-process-detail/suspected-player-process-detail.component';
 
 @Component({
   selector: 'app-suspected-player-details',
@@ -79,6 +80,14 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
     this.suspectedPlayerScreenshotService.get(this.communityId, this.screenshotPage.skip, this.screenshotPage.take).subscribe(screenshots => {
       this.screenshotPage.eof = screenshots.length === 0;
       this.screenshots?.push(...screenshots);
+    });
+  }
+
+  showProcessDetails(process: SuspectedPlayerProcess): void {
+    this.modalService.create({
+      nzTitle: process.processName || '',
+      nzContent: SuspectedPlayerProcessDetailComponent,
+      nzComponentParams: { process }
     });
   }
 

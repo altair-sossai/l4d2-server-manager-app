@@ -8,4 +8,5 @@ export interface SuspectedPlayerProcess {
     fileVersion: string | null;
     originalFilename: string | null;
     productName: string | null;
+    timestamp: Date | null;
 }
