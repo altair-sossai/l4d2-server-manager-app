@@ -15,6 +15,10 @@
                     <ng-container *ngIf="!ping.focused"> (minimizado)</ng-container>
                 </td>
             </tr>
+            <tr *ngIf="activity?.fileCheckFail" class="text-left">
+                <th class="danger">Falha arquivos:</th>
+                <td>{{activity!.fileCheckFail | date : 'short'}}</td>
+            </tr>
         </ng-container>
     </app-suspected-player>
 

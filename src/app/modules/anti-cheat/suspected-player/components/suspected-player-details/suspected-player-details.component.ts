@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { SuspectedPlayerActivityService } from '../../../suspected-player-activity/services/suspected-player-activity.service';
+import { SuspectedPlayerActivity } from '../../../suspected-player-activity/suspected-player-activity';
 import { SuspectedPlayerPingService } from '../../../suspected-player-ping/services/suspected-player-ping.service';
 import { SuspectedPlayerPing } from '../../../suspected-player-ping/suspected-player-ping';
 import { SuspectedPlayerProcessService } from '../../../suspected-player-process/services/suspected-player-process.service';
@@ -25,6 +27,7 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
   public ping?: SuspectedPlayerPing;
   public screenshots?: ScreenshotResult[];
   public processes?: SuspectedPlayerProcess[];
+  public activity?: SuspectedPlayerActivity;
 
   public screenshotPage = { skip: 0, take: 500, pageSize: 500, eof: false };
 
@@ -33,7 +36,8 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
     private suspectedPlayerService: SuspectedPlayerService,
     private suspectedPlayerPingService: SuspectedPlayerPingService,
     private suspectedPlayerScreenshotService: SuspectedPlayerScreenshotService,
-    private suspectedPlayerProcessService: SuspectedPlayerProcessService) {
+    private suspectedPlayerProcessService: SuspectedPlayerProcessService,
+    private suspectedPlayerActivityService: SuspectedPlayerActivityService) {
   }
 
   ngOnInit(): void {
@@ -55,6 +59,7 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
     this.ping = undefined;
     this.screenshots = undefined;
     this.processes = undefined;
+    this.activity = undefined;
 
     this.screenshotPage.skip = 0;
     this.screenshotPage.eof = false;
@@ -63,6 +68,7 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
     this.suspectedPlayerPingService.get(this.communityId).subscribe(ping => this.ping = ping);
     this.suspectedPlayerScreenshotService.get(this.communityId, this.screenshotPage.skip, this.screenshotPage.take).subscribe(screenshots => this.screenshots = screenshots);
     this.suspectedPlayerProcessService.get(this.communityId).subscribe(processes => this.processes = processes);
+    this.suspectedPlayerActivityService.find(this.communityId).subscribe(activity => this.activity = activity);
   }
 
   refreshPing(): void {
