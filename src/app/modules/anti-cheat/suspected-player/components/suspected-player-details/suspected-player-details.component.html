@@ -15,6 +15,10 @@
                     <ng-container *ngIf="!ping.focused"> (minimizado)</ng-container>
                 </td>
             </tr>
+            <tr *ngIf="lastIp" class="text-left">
+                <th>Último IP:</th>
+                <td>{{lastIp.ip}}</td>
+            </tr>
             <tr *ngIf="activity?.fileCheckFail" class="text-left">
                 <th class="danger">Falha arquivos:</th>
                 <td>{{activity!.fileCheckFail | date : 'short'}}</td>
@@ -41,6 +45,7 @@
                 </a>
             </div>
         </nz-tab>
+
         <nz-tab nzTitle="Processos">
             <nz-skeleton [nzActive]="true" *ngIf="!processes"></nz-skeleton>
             <nz-empty *ngIf="processes && !processes.length"></nz-empty>
@@ -66,6 +71,50 @@
                 </tbody>
             </nz-table>
         </nz-tab>
+
+        <nz-tab nzTitle="IP's">
+            <nz-skeleton [nzActive]="true" *ngIf="!ips"></nz-skeleton>
+            <nz-empty *ngIf="ips && !ips.length"></nz-empty>
+            <nz-table #ipsTable [nzData]="ips" [nzFrontPagination]="false" nzSize="small" *ngIf="ips && ips.length">
+                <thead>
+                    <tr>
+                        <th>IP</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let process of ipsTable.data">
+                        <td>{{process.ip}}</td>
+                        <td>{{process.when | date : 'short'}}</td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </nz-tab>
+
+        <nz-tab nzTitle="Jogadores com o mesmo IP">
+
+            <nz-form-item *ngIf="ips && ips.length">
+                <nz-form-label>IP's já utilizados pelo jogador</nz-form-label>
+                <nz-form-control [nzSpan]="24">
+                    <nz-select [(ngModel)]="currentIp" (ngModelChange)="getAllPlayersWithIp(currentIp)" name="ip"
+                        placeholder="IP">
+                        <nz-option *ngFor="let ip of ips" [nzValue]="ip.ip"
+                            nzLabel="{{ ip.ip + ' - ' + (ip.when | date : 'short')}}">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-skeleton [nzActive]="true" *ngIf="!playersWithSameIp"></nz-skeleton>
+
+            <nz-empty *ngIf="playersWithSameIp && !playersWithSameIp.length"></nz-empty>
+
+            <ng-container *ngIf="playersWithSameIp && playersWithSameIp.length">
+                <app-suspected-player *ngFor="let player of playersWithSameIp" [suspectedPlayer]="player">
+                </app-suspected-player>
+            </ng-container>
+
+        </nz-tab>
     </nz-tabset>
 </div>
 
@@ -83,6 +132,10 @@
 
         <button nz-button nzType="primary" nzDanger (click)="deleteAllProcesses()">
             <span nz-icon nzType="delete" nzTheme="outline"></span> Excluir processos
+        </button>
+
+        <button nz-button nzType="primary" nzDanger (click)="deleteAllIps()">
+            <span nz-icon nzType="delete" nzTheme="outline"></span> Excluir IP's
         </button>
     </div>
 

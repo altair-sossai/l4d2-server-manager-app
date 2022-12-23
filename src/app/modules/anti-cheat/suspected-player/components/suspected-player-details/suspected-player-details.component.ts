@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { IpResult } from '../../../player-ip/results/ip.result';
+import { PlayerIpService } from '../../../player-ip/services/player-ip.service';
+import { PlayerResult } from '../../../player/results/player.result';
 import { SuspectedPlayerActivityService } from '../../../suspected-player-activity/services/suspected-player-activity.service';
 import { SuspectedPlayerActivity } from '../../../suspected-player-activity/suspected-player-activity';
 import { SuspectedPlayerPingService } from '../../../suspected-player-ping/services/suspected-player-ping.service';
@@ -28,6 +31,10 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
   public screenshots?: ScreenshotResult[];
   public processes?: SuspectedPlayerProcess[];
   public activity?: SuspectedPlayerActivity;
+  public currentIp?: string | null;
+  public lastIp?: IpResult;
+  public ips?: IpResult[];
+  public playersWithSameIp?: PlayerResult[];
 
   public screenshotPage = { skip: 0, take: 500, pageSize: 500, eof: false };
 
@@ -37,7 +44,8 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
     private suspectedPlayerPingService: SuspectedPlayerPingService,
     private suspectedPlayerScreenshotService: SuspectedPlayerScreenshotService,
     private suspectedPlayerProcessService: SuspectedPlayerProcessService,
-    private suspectedPlayerActivityService: SuspectedPlayerActivityService) {
+    private suspectedPlayerActivityService: SuspectedPlayerActivityService,
+    private playerIpService: PlayerIpService) {
   }
 
   ngOnInit(): void {
@@ -60,6 +68,10 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
     this.screenshots = undefined;
     this.processes = undefined;
     this.activity = undefined;
+    this.currentIp = undefined;
+    this.lastIp = undefined;
+    this.ips = undefined;
+    this.playersWithSameIp = undefined;
 
     this.screenshotPage.skip = 0;
     this.screenshotPage.eof = false;
@@ -69,6 +81,20 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
     this.suspectedPlayerScreenshotService.get(this.communityId, this.screenshotPage.skip, this.screenshotPage.take).subscribe(screenshots => this.screenshots = screenshots);
     this.suspectedPlayerProcessService.get(this.communityId).subscribe(processes => this.processes = processes);
     this.suspectedPlayerActivityService.find(this.communityId).subscribe(activity => this.activity = activity);
+    this.playerIpService.getAllPlayerIps(this.communityId).subscribe(ips => {
+      this.ips = ips;
+
+      if (ips.length === 0) {
+        this.playersWithSameIp = [];
+        return;
+      }
+
+      const ip = ips[0];
+
+      this.lastIp = ip;
+      this.currentIp = ip.ip;
+      this.getAllPlayersWithIp(ip.ip!);
+    });
   }
 
   refreshPing(): void {
@@ -76,6 +102,17 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
       return;
 
     this.suspectedPlayerPingService.get(this.communityId).subscribe(ping => this.ping = ping);
+  }
+
+  getAllPlayersWithIp(ip?: string | null): void {
+    this.playersWithSameIp = undefined;
+
+    if (!ip) {
+      this.playersWithSameIp = [];
+      return;
+    }
+
+    this.playerIpService.getAllPlayersWithIp(ip).subscribe(players => this.playersWithSameIp = players.filter(f => f.communityId !== this.communityId));
   }
 
   loadMoreScreenshots(): void {
@@ -113,6 +150,16 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
       nzOnOk: () => {
         this.screenshots = undefined;
         this.suspectedPlayerProcessService.delete(this.communityId!).subscribe(() => this.refresh());
+      }
+    });
+  }
+
+  deleteAllIps(): void {
+    this.modalService.confirm({
+      nzTitle: 'Atenção, todos os ip\'s do jogador serão apagados, deseja continuar?',
+      nzOnOk: () => {
+        this.screenshots = undefined;
+        this.playerIpService.delete(this.communityId!).subscribe(() => this.refresh());
       }
     });
   }
