@@ -20,7 +20,7 @@ export class AppLayoutComponent implements OnInit {
   }
 
   get showSuspectedPlayersButton(): boolean {
-    return this.me?.accessLevels.indexOf(AccessLevel.AntiCheat) != -1;
+    return this.me?.accessLevels.indexOf(AccessLevel.AntiCheatManager) != -1;
   }
 
   get showVirtualMachineButton(): boolean {
