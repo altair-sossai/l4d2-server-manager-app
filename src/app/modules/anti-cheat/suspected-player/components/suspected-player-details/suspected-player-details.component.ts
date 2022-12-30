@@ -122,14 +122,24 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
     this.playerIpService.getAllPlayersWithIp(ip).subscribe(players => this.playersWithSameIp = players.filter(f => f.communityId !== this.communityId));
   }
 
-  loadMoreScreenshots(): void {
+  screenshotPrevious(): void {
+    this.screenshotPage.skip = Math.max(0, this.screenshotPage.skip - this.screenshotPage.pageSize);
+    this.loadScreenshot();
+  }
+
+  screenshotNext(): void {
+    this.screenshotPage.skip += this.screenshotPage.pageSize;
+    this.loadScreenshot();
+  }
+
+  loadScreenshot(): void {
     if (!this.communityId)
       return;
 
-    this.screenshotPage.skip += this.screenshotPage.pageSize;
+    this.screenshots = undefined;
     this.suspectedPlayerScreenshotService.get(this.communityId, this.screenshotPage.skip, this.screenshotPage.take).subscribe(screenshots => {
       this.screenshotPage.eof = screenshots.length === 0;
-      this.screenshots?.push(...screenshots);
+      this.screenshots = screenshots;
     });
   }
 

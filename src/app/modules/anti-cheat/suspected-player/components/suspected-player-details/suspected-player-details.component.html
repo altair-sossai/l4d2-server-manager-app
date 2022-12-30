@@ -39,10 +39,16 @@
                     </lightgallery>
                 </div>
 
-                <a nz-button nzBlock type="button" nzType="link" style="margin-top: 20px"
-                    *ngIf="screenshots && screenshots.length && !screenshotPage.eof" (click)="loadMoreScreenshots()">
-                    Ver mais
-                </a>
+                <nz-button-group>
+                    <button nz-button nzType="primary" nz-tooltip nzTooltipTitle="Página anterior"
+                        (click)="screenshotPrevious()" [disabled]="screenshotPage.skip == 0">
+                        <span nz-icon nzType="left"></span> Voltar
+                    </button>
+                    <button nz-button nzType="primary" nz-tooltip nzTooltipTitle="Próxima página"
+                        (click)="screenshotNext()" [disabled]="screenshotPage.eof">
+                        Avançar <span nz-icon nzType="right"></span>
+                    </button>
+                </nz-button-group>
             </div>
         </nz-tab>
 
