@@ -32,6 +32,7 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
+import { FailReasonPipe } from './modules/anti-cheat/suspected-player-file-fail/pipes/fail-reason.pipe';
 import { SuspectedPlayerDetailsComponent } from './modules/anti-cheat/suspected-player/components/suspected-player-details/suspected-player-details.component';
 import { SuspectedPlayerProcessDetailComponent } from './modules/anti-cheat/suspected-player/components/suspected-player-process-detail/suspected-player-process-detail.component';
 import { SuspectedPlayerComponent } from './modules/anti-cheat/suspected-player/components/suspected-player/suspected-player.component';
@@ -69,7 +70,8 @@ registerLocaleData(pt);
     SuspectedPlayerComponent,
     SuspectedPlayersComponent,
     SuspectedPlayerDetailsComponent,
-    SuspectedPlayerProcessDetailComponent
+    SuspectedPlayerProcessDetailComponent,
+    FailReasonPipe
   ],
   imports: [
     BrowserModule,

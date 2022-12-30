@@ -115,6 +115,28 @@
             </ng-container>
 
         </nz-tab>
+
+        <nz-tab nzTitle="Arquivos com falha">
+            <nz-skeleton [nzActive]="true" *ngIf="!filesFail"></nz-skeleton>
+            <nz-empty *ngIf="filesFail && !filesFail.length"></nz-empty>
+            <nz-table #filesFailTable [nzData]="filesFail" [nzFrontPagination]="false" nzSize="small"
+                *ngIf="filesFail && filesFail.length">
+                <thead>
+                    <tr>
+                        <th>Arquivo</th>
+                        <th>Motivo</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let process of filesFailTable.data">
+                        <td>{{process.file}}</td>
+                        <td>{{process.reason | failReason}}</td>
+                        <td>{{process.timestamp | date : 'short'}}</td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </nz-tab>
     </nz-tabset>
 </div>
 
@@ -136,6 +158,10 @@
 
         <button nz-button nzType="primary" nzDanger (click)="deleteAllIps()">
             <span nz-icon nzType="delete" nzTheme="outline"></span> Excluir IP's
+        </button>
+
+        <button nz-button nzType="primary" nzDanger (click)="deleteAllFilesFail()">
+            <span nz-icon nzType="delete" nzTheme="outline"></span> Excluir arquivos com falha
         </button>
     </div>
 

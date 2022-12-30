@@ -6,6 +6,8 @@ import { PlayerIpService } from '../../../player-ip/services/player-ip.service';
 import { PlayerResult } from '../../../player/results/player.result';
 import { SuspectedPlayerActivityService } from '../../../suspected-player-activity/services/suspected-player-activity.service';
 import { SuspectedPlayerActivity } from '../../../suspected-player-activity/suspected-player-activity';
+import { SuspectedPlayerFileFailService } from '../../../suspected-player-file-fail/services/suspected-player-file-fail.service';
+import { SuspectedPlayerFileFail } from '../../../suspected-player-file-fail/suspected-player-file-fail';
 import { SuspectedPlayerPingService } from '../../../suspected-player-ping/services/suspected-player-ping.service';
 import { SuspectedPlayerPing } from '../../../suspected-player-ping/suspected-player-ping';
 import { SuspectedPlayerProcessService } from '../../../suspected-player-process/services/suspected-player-process.service';
@@ -35,8 +37,9 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
   public lastIp?: IpResult;
   public ips?: IpResult[];
   public playersWithSameIp?: PlayerResult[];
+  public filesFail?: SuspectedPlayerFileFail[];
 
-  public screenshotPage = { skip: 0, take: 500, pageSize: 500, eof: false };
+  public screenshotPage = { skip: 0, take: 100, pageSize: 100, eof: false };
 
   constructor(private route: ActivatedRoute,
     private modalService: NzModalService,
@@ -45,6 +48,7 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
     private suspectedPlayerScreenshotService: SuspectedPlayerScreenshotService,
     private suspectedPlayerProcessService: SuspectedPlayerProcessService,
     private suspectedPlayerActivityService: SuspectedPlayerActivityService,
+    private suspectedPlayerFileFailService: SuspectedPlayerFileFailService,
     private playerIpService: PlayerIpService) {
   }
 
@@ -72,6 +76,7 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
     this.lastIp = undefined;
     this.ips = undefined;
     this.playersWithSameIp = undefined;
+    this.filesFail = undefined;
 
     this.screenshotPage.skip = 0;
     this.screenshotPage.eof = false;
@@ -81,6 +86,8 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
     this.suspectedPlayerScreenshotService.get(this.communityId, this.screenshotPage.skip, this.screenshotPage.take).subscribe(screenshots => this.screenshots = screenshots);
     this.suspectedPlayerProcessService.get(this.communityId).subscribe(processes => this.processes = processes);
     this.suspectedPlayerActivityService.find(this.communityId).subscribe(activity => this.activity = activity);
+    this.suspectedPlayerFileFailService.get(this.communityId).subscribe(filesFail => this.filesFail = filesFail);
+
     this.playerIpService.getAllPlayerIps(this.communityId).subscribe(ips => {
       this.ips = ips;
 
@@ -136,7 +143,7 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
 
   deleteAllScreenshots(): void {
     this.modalService.confirm({
-      nzTitle: 'Atenção, todas as screenshots do jogador serão apagadas, deseja continuar?',
+      nzTitle: 'Atenção, todas as screenshots serão apagadas, deseja continuar?',
       nzOnOk: () => {
         this.screenshots = undefined;
         this.suspectedPlayerScreenshotService.delete(this.communityId!).subscribe(() => this.refresh());
@@ -146,7 +153,7 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
 
   deleteAllProcesses(): void {
     this.modalService.confirm({
-      nzTitle: 'Atenção, todos os processos do jogador serão apagados, deseja continuar?',
+      nzTitle: 'Atenção, todos os processos serão apagados, deseja continuar?',
       nzOnOk: () => {
         this.screenshots = undefined;
         this.suspectedPlayerProcessService.delete(this.communityId!).subscribe(() => this.refresh());
@@ -156,10 +163,20 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
 
   deleteAllIps(): void {
     this.modalService.confirm({
-      nzTitle: 'Atenção, todos os ip\'s do jogador serão apagados, deseja continuar?',
+      nzTitle: 'Atenção, todos os ip\'s serão apagados, deseja continuar?',
       nzOnOk: () => {
         this.screenshots = undefined;
         this.playerIpService.delete(this.communityId!).subscribe(() => this.refresh());
+      }
+    });
+  }
+
+  deleteAllFilesFail(): void {
+    this.modalService.confirm({
+      nzTitle: 'Atenção, todos os arquivos com falha serão apagados, deseja continuar?',
+      nzOnOk: () => {
+        this.screenshots = undefined;
+        this.suspectedPlayerFileFailService.delete(this.communityId!).subscribe(() => this.refresh());
       }
     });
   }
