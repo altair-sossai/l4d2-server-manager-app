@@ -28,12 +28,8 @@ export class ServerService {
         return this.http.get<Player[]>(`${environment.apiUrl}/api/server/${ip}:${port}/players`);
     }
 
-    runVanilla(port: number, command: RunServerCommand): Observable<void> {
+    run(port: number, command: RunServerCommand): Observable<void> {
         return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/run`, command);
-    }
-
-    runZone(port: number, command: RunServerCommand): Observable<void> {
-        return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/run-zone`, command);
     }
 
     stop(port: number): Observable<void> {

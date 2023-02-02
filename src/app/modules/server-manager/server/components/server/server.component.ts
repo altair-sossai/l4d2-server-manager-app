@@ -24,7 +24,6 @@ export class ServerComponent implements OnInit {
   serverInfo?: ServerInfo;
   players?: Player[];
   user?: User;
-  action?: string;
   loading = false;
 
   command: RunServerCommand = new RunServerCommand();
@@ -71,27 +70,10 @@ export class ServerComponent implements OnInit {
     });
   }
 
-  runServer(action?: string) {
-    if (!action)
-      return;
-
+  runServer() {
     this.loading = true;
 
-    switch (action) {
-      case 'vanilla': this.runVanilla(); return;
-      case 'zone': this.runZone(); return;
-    }
-  }
-
-  runVanilla(): void {
-    this.serverService.runVanilla(this.port!, this.command).subscribe(() => {
-      this.refresh();
-      this.loading = false;
-    });
-  }
-
-  runZone(): void {
-    this.serverService.runZone(this.port!, this.command).subscribe(() => {
+    this.serverService.run(this.port!, this.command).subscribe(() => {
       this.refresh();
       this.loading = false;
     });

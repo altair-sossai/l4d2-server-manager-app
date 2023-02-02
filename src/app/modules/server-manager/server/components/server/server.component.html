@@ -9,18 +9,7 @@
         Servidor: <nz-tag nzColor="red"><b>NÃO INICIADO</b></nz-tag>
     </p>
 
-    <p>O que você deseja fazer?</p>
-
-    <nz-radio-group [(ngModel)]="action">
-        <label nz-radio nzValue="vanilla" [nzDisabled]="loading">
-            Iniciar um servidor de <b>Vanilla</b>
-        </label>
-        <label nz-radio nzValue="zone" [nzDisabled]="loading">
-            Iniciar um servidor de <b>Zone</b>
-        </label>
-    </nz-radio-group>
-
-    <nz-form-item *ngIf="action">
+    <nz-form-item>
         <nz-form-label nzRequired nzFor="campaign">Campanha</nz-form-label>
         <nz-form-control [nzSpan]="24">
             <nz-select [(ngModel)]="command.campaign" name="campaign" placeholder="Campanha" [nzDisabled]="loading">
@@ -33,7 +22,7 @@
     <nz-divider></nz-divider>
 
     <div class="buttons">
-        <button nz-button nzType="primary" (click)="runServer(action)" [nzLoading]="loading" [disabled]="!action">
+        <button nz-button nzType="primary" (click)="runServer()" [nzLoading]="loading">
             <i nz-icon nzType="play-circle" nzTheme="outline"></i>
             {{ loading ? 'Iniciando...' : 'Iniciar' }}
         </button>

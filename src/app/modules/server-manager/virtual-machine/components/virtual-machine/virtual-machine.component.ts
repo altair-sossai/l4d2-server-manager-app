@@ -98,25 +98,12 @@ export class VirtualMachineComponent implements OnInit {
         return;
       }
 
-      switch (action) {
-        case 'vanilla': this.runVanilla(port.portNumber); return;
-        case 'zone': this.runZone(port.portNumber); return;
-      }
+      this.serverService.run(port.portNumber, this.command).subscribe(() => {
+        this.goToServer(port.portNumber);
+      });
 
       this.refresh();
       this.loading = false;
-    });
-  }
-
-  runVanilla(port: number): void {
-    this.serverService.runVanilla(port, this.command).subscribe(() => {
-      this.goToServer(port);
-    });
-  }
-
-  runZone(port: number): void {
-    this.serverService.runZone(port, this.command).subscribe(() => {
-      this.goToServer(port);
     });
   }
 
