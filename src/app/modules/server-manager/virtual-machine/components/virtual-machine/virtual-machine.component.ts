@@ -101,9 +101,6 @@ export class VirtualMachineComponent implements OnInit {
       this.serverService.run(port.portNumber, this.command).subscribe(() => {
         this.goToServer(port.portNumber);
       });
-
-      this.refresh();
-      this.loading = false;
     });
   }
 
