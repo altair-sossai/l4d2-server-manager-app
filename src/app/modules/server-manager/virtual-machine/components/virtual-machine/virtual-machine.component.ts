@@ -51,8 +51,10 @@ export class VirtualMachineComponent implements OnInit {
 
     this.virtualMachineService.get().subscribe(virtualMachine => {
       this.virtualMachine = virtualMachine;
-      if (!this.virtualMachine.isOn)
+      if (!this.virtualMachine.isOn) {
+        this.userService.find(this.virtualMachine.powerOffBy).subscribe(user => this.user = user);
         return;
+      }
 
       this.portService.get(this.virtualMachine.ipAddress).subscribe(ports => this.ports = ports);
       this.userService.find(this.virtualMachine.powerOnBy).subscribe(user => this.user = user);

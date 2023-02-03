@@ -8,4 +8,6 @@ export interface VirtualMachine {
     permissions: string[];
     powerOnBy: string;
     powerOnAt: Date;
+    powerOffBy: string;
+    powerOffAt: Date;
 }

@@ -9,6 +9,20 @@
         Máquina virtual: <nz-tag nzColor="red"><b>DESLIGADA</b></nz-tag>
     </p>
 
+    <table>
+        <tr>
+            <th>Desligada por:</th>
+            <td>
+                <app-user-detail *ngIf="user" [user]="user"></app-user-detail>
+                <nz-skeleton *ngIf="!user" [nzActive]="true"></nz-skeleton>
+            </td>
+        </tr>
+        <tr *ngIf="virtualMachine.powerOffAt">
+            <th>Desligada em:</th>
+            <td>{{virtualMachine.powerOffAt | date : 'short'}}</td>
+        </tr>
+    </table>
+
     <p>O que você deseja fazer?</p>
 
     <nz-radio-group [(ngModel)]="action">
