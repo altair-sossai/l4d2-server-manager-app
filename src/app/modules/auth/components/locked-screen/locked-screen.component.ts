@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { AccessLevel } from '../../users/enums/access-level.enum';
+import { UserService } from '../../users/services/user.service';
+import { User } from '../../users/user';
 
 @Component({
   selector: 'app-locked-screen',
@@ -10,22 +13,17 @@ import { AuthService } from '../../services/auth.service';
 export class LockedScreenComponent implements OnInit {
 
   authenticated: boolean = false;
+  me?: User;
 
   constructor(private router: Router,
-    private route: ActivatedRoute,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private userService: UserService) {
   }
 
   ngOnInit(): void {
     this.authenticated = this.authService.authenticated();
-    this.route.queryParams.subscribe(params => {
-      const token = params['token'];
-      if (!token)
-        return;
-
-      this.authService.setToken(token);
-      this.virtualMachine();
-    });
+    if (this.authenticated)
+      this.userService.me().subscribe(me => this.me = me);
   }
 
   autenticar(): void {
@@ -34,10 +32,38 @@ export class LockedScreenComponent implements OnInit {
       return;
 
     this.authService.setToken(token);
-    this.virtualMachine();
+    this.userService.me().subscribe(me => this.navigateToPageWithAccess(me));
+  }
+
+  navigateToPageWithAccess(me: User): void {
+    this.me = me;
+
+    if (this.serversAccess)
+      this.virtualMachine();
+
+    else if (this.antiCheatManagerAccess)
+      this.suspectedPlayers();
   }
 
   virtualMachine(): void {
     this.router.navigate(['/virtual-machine']);
+  }
+
+  suspectedPlayers(): void {
+    this.router.navigate(['/suspected-players']);
+  }
+
+  get serversAccess(): boolean {
+    if (!this.me)
+      return false;
+
+    return this.me?.accessLevels.indexOf(AccessLevel.Servers) != -1;
+  }
+
+  get antiCheatManagerAccess(): boolean {
+    if (!this.me)
+      return false;
+
+    return this.me?.accessLevels.indexOf(AccessLevel.AntiCheatManager) != -1;
   }
 }

@@ -2,6 +2,7 @@
     nzSubTitle="Para prosseguir é necessário informar o token de acesso.">
     <div nz-result-extra>
         <button nz-button nzType="primary" (click)="autenticar()">Informar token</button>
-        <button nz-button (click)="virtualMachine()" *ngIf="authenticated">Máquina virtual</button>
+        <button nz-button (click)="virtualMachine()" *ngIf="serversAccess">Máquina virtual</button>
+        <button nz-button (click)="suspectedPlayers()" *ngIf="antiCheatManagerAccess">Jogadores suspeitos</button>
     </div>
 </nz-result>
