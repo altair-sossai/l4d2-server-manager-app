@@ -92,9 +92,15 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let metadata of metadatasTable.data">
-                        <td nzLeft>{{metadata.name}}</td>
-                        <td>{{metadata.value}}</td>
-                        <td>{{metadata.timestamp | date : 'short'}}</td>
+                        <td nzLeft class="slim">{{metadata.name}}</td>
+                        <td>
+                            <pre>{{metadata.value | slice:0:(metadata?.slice || 100)}}</pre>
+                            <a (click)="metadata.slice = metadata?.value!.length"
+                                *ngIf="metadata.value!.length > 100 && metadata.slice !== metadata.value?.length">
+                                Ver mais
+                            </a>
+                        </td>
+                        <td class="slim">{{metadata.timestamp | date : 'short'}}</td>
                     </tr>
                 </tbody>
             </nz-table>
