@@ -8,6 +8,8 @@ import { SuspectedPlayerActivityService } from '../../../suspected-player-activi
 import { SuspectedPlayerActivity } from '../../../suspected-player-activity/suspected-player-activity';
 import { SuspectedPlayerFileFailService } from '../../../suspected-player-file-fail/services/suspected-player-file-fail.service';
 import { SuspectedPlayerFileFail } from '../../../suspected-player-file-fail/suspected-player-file-fail';
+import { SuspectedPlayerMetadataService } from '../../../suspected-player-metadata/services/suspected-player-metadata.service';
+import { SuspectedPlayerMetadata } from '../../../suspected-player-metadata/suspected-player-metadata';
 import { SuspectedPlayerPingService } from '../../../suspected-player-ping/services/suspected-player-ping.service';
 import { SuspectedPlayerPing } from '../../../suspected-player-ping/suspected-player-ping';
 import { SuspectedPlayerProcessService } from '../../../suspected-player-process/services/suspected-player-process.service';
@@ -32,6 +34,7 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
   public ping?: SuspectedPlayerPing;
   public screenshots?: ScreenshotResult[];
   public processes?: SuspectedPlayerProcess[];
+  public metadatas?: SuspectedPlayerMetadata[];
   public activity?: SuspectedPlayerActivity;
   public currentIp?: string | null;
   public lastIp?: IpResult;
@@ -47,6 +50,7 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
     private suspectedPlayerPingService: SuspectedPlayerPingService,
     private suspectedPlayerScreenshotService: SuspectedPlayerScreenshotService,
     private suspectedPlayerProcessService: SuspectedPlayerProcessService,
+    private suspectedPlayerMetadataService: SuspectedPlayerMetadataService,
     private suspectedPlayerActivityService: SuspectedPlayerActivityService,
     private suspectedPlayerFileFailService: SuspectedPlayerFileFailService,
     private playerIpService: PlayerIpService) {
@@ -71,6 +75,7 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
     this.ping = undefined;
     this.screenshots = undefined;
     this.processes = undefined;
+    this.metadatas = undefined;
     this.activity = undefined;
     this.currentIp = undefined;
     this.lastIp = undefined;
@@ -85,6 +90,7 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
     this.suspectedPlayerPingService.get(this.communityId).subscribe(ping => this.ping = ping);
     this.suspectedPlayerScreenshotService.get(this.communityId, this.screenshotPage.skip, this.screenshotPage.take).subscribe(screenshots => this.screenshots = screenshots);
     this.suspectedPlayerProcessService.get(this.communityId).subscribe(processes => this.processes = processes);
+    this.suspectedPlayerMetadataService.get(this.communityId).subscribe(metadatas => this.metadatas = metadatas);
     this.suspectedPlayerActivityService.find(this.communityId).subscribe(activity => this.activity = activity);
     this.suspectedPlayerFileFailService.get(this.communityId).subscribe(filesFail => this.filesFail = filesFail);
 
@@ -167,6 +173,16 @@ export class SuspectedPlayerDetailsComponent implements OnInit, OnDestroy {
       nzOnOk: () => {
         this.screenshots = undefined;
         this.suspectedPlayerProcessService.delete(this.communityId!).subscribe(() => this.refresh());
+      }
+    });
+  }
+
+  deleteAllMedatadas(): void {
+    this.modalService.confirm({
+      nzTitle: 'Atenção, todos os metadados serão apagados, deseja continuar?',
+      nzOnOk: () => {
+        this.screenshots = undefined;
+        this.suspectedPlayerMetadataService.delete(this.communityId!).subscribe(() => this.refresh());
       }
     });
   }
