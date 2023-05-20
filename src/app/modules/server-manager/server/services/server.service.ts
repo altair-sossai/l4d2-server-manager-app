@@ -38,4 +38,8 @@ export class ServerService {
     kickAllPlayers(port: number): Observable<void> {
         return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/kick-all-players`, {});
     }
+
+    openPort(port: number): Observable<void> {
+        return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/open-port`, {});
+    }
 }

@@ -104,6 +104,14 @@ export class ServerComponent implements OnInit {
     });
   }
 
+  openPort(): void {
+    this.loading = true;
+    this.serverService.openPort(this.port!).subscribe(() => {
+      this.refresh();
+      this.loading = false;
+    });
+  }
+
   public get fullIpAddress(): string {
     return `${this.server?.ipAddress}:${this.server?.port}`;
   }
@@ -133,5 +141,9 @@ export class ServerComponent implements OnInit {
 
   canKickAllPlayers(): boolean {
     return this.hasPermissions('kick-all-players');
+  }
+
+  canOpenPort(): boolean {
+    return this.hasPermissions('open-port');
   }
 }

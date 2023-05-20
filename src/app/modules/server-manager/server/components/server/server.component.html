@@ -132,6 +132,10 @@
             <i nz-icon nzType="usergroup-delete" nzTheme="outline"></i> Expulsar todos os jogadores
         </button>
 
+        <button *ngIf="canOpenPort()" nz-button nzType="primary" (click)="openPort()" [nzLoading]="loading">
+            <i nz-icon nzType="unlock" nzTheme="outline"></i> Abrir porta para todos
+        </button>
+
         <button nz-button nzType="default" (click)="refresh()" [nzLoading]="loading">
             <i nz-icon nzType="reload" nzTheme="outline"></i> Atualizar
         </button>
