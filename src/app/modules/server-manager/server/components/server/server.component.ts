@@ -104,33 +104,6 @@ export class ServerComponent implements OnInit {
     });
   }
 
-  openPort(ranges: string | null): void {
-    if (!ranges)
-      ranges = prompt('Informe os IPs');
-
-    if (!ranges)
-      return;
-
-    this.loading = true;
-    this.serverService.openPort(this.port!, { ranges }).subscribe(() => {
-      this.refresh();
-      this.loading = false;
-    });
-  }
-
-  closePort(): void {
-    this.modalService.confirm({
-      nzTitle: 'Atenção, a porta do servidor será fechada, deseja continuar?',
-      nzOnOk: () => {
-        this.loading = true;
-        this.serverService.closePort(this.port!).subscribe(() => {
-          this.refresh();
-          this.loading = false;
-        });
-      }
-    });
-  }
-
   public get fullIpAddress(): string {
     return `${this.server?.ipAddress}:${this.server?.port}`;
   }
@@ -160,13 +133,5 @@ export class ServerComponent implements OnInit {
 
   canKickAllPlayers(): boolean {
     return this.hasPermissions('kick-all-players');
-  }
-
-  canOpenPort(): boolean {
-    return this.hasPermissions('open-port');
-  }
-
-  canClosePort(): boolean {
-    return this.hasPermissions('close-port');
   }
 }

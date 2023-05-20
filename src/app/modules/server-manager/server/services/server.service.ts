@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Player } from 'src/app/modules/server-manager/player/player';
 import { environment } from 'src/environments/environment';
-import { OpenPortCommand } from '../commands/open-port.command';
 import { RunServerCommand } from '../commands/run-server.command';
 import { ServerInfo } from '../info/server-info';
 import { Server } from '../server';
@@ -38,13 +37,5 @@ export class ServerService {
 
     kickAllPlayers(port: number): Observable<void> {
         return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/kick-all-players`, {});
-    }
-
-    openPort(port: number, command: OpenPortCommand): Observable<void> {
-        return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/open-port`, command);
-    }
-
-    closePort(port: number): Observable<void> {
-        return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/close-port`, {});
     }
 }
