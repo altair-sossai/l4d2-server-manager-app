@@ -95,7 +95,7 @@
                 </nz-tag>
                 <nz-tag *ngIf="server.portInfo.status == PortStatus.Open && server.portInfo.rules != '*'"
                     nzColor="orange">
-                    {{server.portInfo.status | portStatus}} apenas para o(s) IP(s) {{server.portInfo.rules}}
+                    {{server.portInfo.status | portStatus}} apenas para o(s) IP(s) dos jogadores
                 </nz-tag>
                 <nz-tag nzColor="red" *ngIf="server.portInfo.status == PortStatus.Close">
                     {{server.portInfo.status | portStatus}}
