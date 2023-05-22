@@ -66,7 +66,9 @@ export class ServerComponent implements OnInit {
 
       this.serverService.info(this.server.ipAddress, this.port!).subscribe(serverInfo => this.serverInfo = serverInfo);
       this.serverService.players(this.server.ipAddress, this.port!).subscribe(players => this.players = players);
-      this.userService.find(this.server.startedBy).subscribe(user => this.user = user);
+
+      if (this.server.startedBy)
+        this.userService.find(this.server.startedBy).subscribe(user => this.user = user);
     });
   }
 

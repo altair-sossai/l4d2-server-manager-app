@@ -45,11 +45,10 @@
     <nz-skeleton [nzActive]="true" *ngIf="!serverInfo"></nz-skeleton>
 
     <table *ngIf="serverInfo">
-        <tr>
+        <tr *ngIf="user">
             <th>Iniciado por:</th>
             <td>
-                <app-user-detail *ngIf="user" [user]="user"></app-user-detail>
-                <nz-skeleton *ngIf="!user" [nzActive]="true"></nz-skeleton>
+                <app-user-detail [user]="user"></app-user-detail>
             </td>
         </tr>
         <tr *ngIf="server.startedAt">
