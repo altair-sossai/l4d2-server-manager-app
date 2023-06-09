@@ -93,19 +93,6 @@ export class ServerComponent implements OnInit {
     });
   }
 
-  kickAllPlayers(): void {
-    this.modalService.confirm({
-      nzTitle: 'Atenção, todos os players serão kickados, deseja realmente continuar?',
-      nzOnOk: () => {
-        this.loading = true;
-        this.serverService.kickAllPlayers(this.port!).subscribe(() => {
-          this.refresh();
-          this.loading = false;
-        });
-      }
-    });
-  }
-
   openPort(): void {
     this.loading = true;
     this.serverService.openPort(this.port!).subscribe(() => {
@@ -139,10 +126,6 @@ export class ServerComponent implements OnInit {
 
   canStop(): boolean {
     return this.hasPermissions('stop');
-  }
-
-  canKickAllPlayers(): boolean {
-    return this.hasPermissions('kick-all-players');
   }
 
   canOpenPort(): boolean {
