@@ -75,9 +75,15 @@ export class ServerComponent implements OnInit {
   runServer() {
     this.loading = true;
 
-    this.serverService.run(this.port!, this.command).subscribe(() => {
-      this.refresh();
-      this.loading = false;
+    this.serverService.run(this.port!, this.command).subscribe({
+      next: () => {
+        this.refresh();
+        this.loading = false;
+      },
+      error: () => {
+        this.refresh();
+        this.loading = false;
+      }
     });
   }
 
@@ -86,8 +92,14 @@ export class ServerComponent implements OnInit {
       nzTitle: 'Atenção, o servidor será desligado, deseja realmente continuar?',
       nzOnOk: () => {
         this.loading = true;
-        this.serverService.stop(this.port!).subscribe(() => {
-          this.router.navigate(['/virtual-machine']);
+        this.serverService.stop(this.port!).subscribe({
+          next: () => {
+            this.router.navigate(['/virtual-machine']);
+          },
+          error: () => {
+            this.refresh();
+            this.loading = false;
+          }
         });
       }
     });
@@ -95,9 +107,15 @@ export class ServerComponent implements OnInit {
 
   openPort(): void {
     this.loading = true;
-    this.serverService.openPort(this.port!).subscribe(() => {
-      this.refresh();
-      this.loading = false;
+    this.serverService.openPort(this.port!).subscribe({
+      next: () => {
+        this.refresh();
+        this.loading = false;
+      },
+      error: () => {
+        this.refresh();
+        this.loading = false;
+      }
     });
   }
 

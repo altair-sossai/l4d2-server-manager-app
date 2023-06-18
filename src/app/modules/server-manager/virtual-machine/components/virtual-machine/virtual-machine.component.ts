@@ -68,14 +68,20 @@ export class VirtualMachineComponent implements OnInit {
       return;
 
     this.loading = true;
-    this.virtualMachineService.powerOn().subscribe(virtualMachine => {
-      if (action == 'power-on') {
+    this.virtualMachineService.powerOn().subscribe({
+      next: virtualMachine => {
+        if (action == 'power-on') {
+          this.refresh();
+          this.loading = false;
+          return;
+        }
+
+        this.runServer(virtualMachine, action);
+      },
+      error: () => {
         this.refresh();
         this.loading = false;
-        return;
       }
-
-      this.runServer(virtualMachine, action);
     });
   }
 
@@ -84,28 +90,40 @@ export class VirtualMachineComponent implements OnInit {
       nzTitle: 'Atenção, todos os servidores serão desligados, deseja continuar?',
       nzOnOk: () => {
         this.loading = true;
-        this.virtualMachineService.powerOff().subscribe(() => {
-          this.refresh();
-          this.loading = false;
+        this.virtualMachineService.powerOff().subscribe({
+          next: () => {
+            this.refresh();
+            this.loading = false;
+          },
+          error: () => {
+            this.refresh();
+            this.loading = false;
+          }
         });
       }
     });
   }
 
   runServer(virtualMachine: VirtualMachine, action: string): void {
-    this.portService.get(virtualMachine.ipAddress).subscribe(ports => {
-      const port = ports.find(p => !p.isRunning);
+    this.portService.get(virtualMachine.ipAddress).subscribe({
+      next: ports => {
+        const port = ports.find(p => !p.isRunning);
 
-      if (!port) {
+        if (!port) {
+          this.refresh();
+          this.loading = false;
+          return;
+        }
+
+        this.serverService.run(port.portNumber, this.command).subscribe(() => {
+          this.goToServer(port.portNumber);
+        });
+      },
+      error: () => {
         this.refresh();
         this.loading = false;
-        return;
       }
-
-      this.serverService.run(port.portNumber, this.command).subscribe(() => {
-        this.goToServer(port.portNumber);
-      });
-    }, _ => this.refresh());
+    });
   }
 
   goToServer(port: number) {
