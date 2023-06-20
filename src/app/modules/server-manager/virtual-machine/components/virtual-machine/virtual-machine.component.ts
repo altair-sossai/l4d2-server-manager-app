@@ -63,6 +63,25 @@ export class VirtualMachineComponent implements OnInit {
     });
   }
 
+  restart(): void {
+    this.modalService.confirm({
+      nzTitle: 'Atenção, todos os servidores serão reiniciados, deseja continuar?',
+      nzOnOk: () => {
+        this.loading = true;
+        this.virtualMachineService.restart().subscribe({
+          next: () => {
+            this.refresh();
+            this.loading = false;
+          },
+          error: () => {
+            this.refresh();
+            this.loading = false;
+          }
+        });
+      }
+    })
+  };
+
   powerOn(action?: string): void {
     if (!action)
       return;
@@ -135,6 +154,10 @@ export class VirtualMachineComponent implements OnInit {
       return false;
 
     return this.virtualMachine.permissions.indexOf(permission) !== -1;
+  }
+
+  canRestart(): boolean {
+    return this.canPowerOff();
   }
 
   canPowerOff(): boolean {

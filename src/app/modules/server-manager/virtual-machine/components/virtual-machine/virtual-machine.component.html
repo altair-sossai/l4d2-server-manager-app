@@ -103,11 +103,17 @@
     <div class="buttons">
         <button nz-button nzType="primary" nzDanger (click)="powerOff()" [nzLoading]="loading" *ngIf="canPowerOff()">
             <i nz-icon nzType="poweroff" nzTheme="outline"></i>
-            {{ loading ? 'Desligando...' : 'Desligar máquina virtual' }}
+            {{ loading ? 'Aguarde...' : 'Desligar máquina virtual' }}
+        </button>
+
+        <button nz-button nzType="primary" nzDanger (click)="restart()" [nzLoading]="loading" *ngIf="canRestart()">
+            <i nz-icon nzType="redo" nzTheme="outline"></i>
+            {{ loading ? 'Aguarde...' : 'Reiniciar máquina virtual' }}
         </button>
 
         <button nz-button nzType="default" (click)="refresh()" [nzLoading]="loading">
-            <i nz-icon nzType="reload" nzTheme="outline"></i> Atualizar
+            <i nz-icon nzType="reload" nzTheme="outline"></i>
+            {{ loading ? 'Aguarde...' : 'Atualizar' }}
         </button>
     </div>
 </ng-container>

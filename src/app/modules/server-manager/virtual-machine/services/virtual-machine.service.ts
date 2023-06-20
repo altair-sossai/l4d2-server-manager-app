@@ -16,6 +16,10 @@ export class VirtualMachineService {
         return this.http.get<VirtualMachine>(`${environment.apiUrl}/api/virtual-machine`);
     }
 
+    restart(): Observable<VirtualMachine> {
+        return this.http.put<VirtualMachine>(`${environment.apiUrl}/api/virtual-machine/restart`, {});
+    }
+
     powerOn(): Observable<VirtualMachine> {
         return this.http.put<VirtualMachine>(`${environment.apiUrl}/api/virtual-machine/power-on`, {});
     }
