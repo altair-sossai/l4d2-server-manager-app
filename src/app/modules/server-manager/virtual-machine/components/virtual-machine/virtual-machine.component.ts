@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -17,7 +17,7 @@ import { VirtualMachine } from '../../virtual-machine';
   templateUrl: './virtual-machine.component.html',
   styleUrls: ['./virtual-machine.component.scss']
 })
-export class VirtualMachineComponent implements OnInit {
+export class VirtualMachineComponent implements OnInit, OnDestroy {
 
   virtualMachine?: VirtualMachine;
   ports?: Port[];
@@ -26,6 +26,7 @@ export class VirtualMachineComponent implements OnInit {
   action?: string;
 
   command: RunServerCommand = new RunServerCommand();
+  refreshInterval: any;
 
   Campaigns = Object.keys(Campaign).map(c => c as Campaign);
 
@@ -41,13 +42,21 @@ export class VirtualMachineComponent implements OnInit {
 
   ngOnInit(): void {
     this.refresh();
+    this.refreshInterval = setInterval(() => this.refresh(true), 30 * 1000);
   }
 
-  refresh(): void {
-    this.virtualMachine = undefined;
-    this.ports = undefined;
-    this.user = undefined;
-    this.action = undefined;
+  ngOnDestroy(): void {
+    if (this.refreshInterval)
+      clearInterval(this.refreshInterval);
+  }
+
+  refresh(silent = false): void {
+    if (!silent) {
+      this.virtualMachine = undefined;
+      this.ports = undefined;
+      this.user = undefined;
+      this.action = undefined;
+    }
 
     this.virtualMachineService.get().subscribe(virtualMachine => {
       this.virtualMachine = virtualMachine;

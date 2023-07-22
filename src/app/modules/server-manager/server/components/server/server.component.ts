@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -17,7 +17,7 @@ import { ServerService } from '../../services/server.service';
   templateUrl: './server.component.html',
   styleUrls: ['./server.component.scss']
 })
-export class ServerComponent implements OnInit {
+export class ServerComponent implements OnInit, OnDestroy {
 
   port?: number;
   server?: Server;
@@ -27,6 +27,7 @@ export class ServerComponent implements OnInit {
   loading = false;
 
   command: RunServerCommand = new RunServerCommand();
+  refreshInterval: any;
 
   PortStatus = PortStatus;
   Campaigns = Object.keys(Campaign).map(c => c as Campaign);
@@ -42,16 +43,24 @@ export class ServerComponent implements OnInit {
   ngOnInit(): void {
     this.port = +this.route.snapshot.paramMap.get('port')!;
     this.refresh();
+    this.refreshInterval = setInterval(() => this.refresh(true), 30 * 1000);
   }
 
-  refresh(): void {
+  ngOnDestroy(): void {
+    if (this.refreshInterval)
+      clearInterval(this.refreshInterval);
+  }
+
+  refresh(silent = false): void {
     if (!this.port)
       return;
 
-    this.server = undefined;
-    this.serverInfo = undefined;
-    this.players = undefined;
-    this.user = undefined;
+    if (!silent) {
+      this.server = undefined;
+      this.serverInfo = undefined;
+      this.players = undefined;
+      this.user = undefined;
+    }
 
     this.serverService.get(this.port).subscribe(server => {
       this.server = server;
