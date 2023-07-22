@@ -95,7 +95,7 @@ export class VirtualMachineComponent implements OnInit {
           return;
         }
 
-        this.runServer(virtualMachine, action);
+        this.runServer(virtualMachine);
       },
       error: () => {
         this.refresh();
@@ -123,7 +123,7 @@ export class VirtualMachineComponent implements OnInit {
     });
   }
 
-  runServer(virtualMachine: VirtualMachine, action: string): void {
+  runServer(virtualMachine: VirtualMachine): void {
     this.portService.get(virtualMachine.ipAddress).subscribe({
       next: ports => {
         const port = ports.find(p => !p.isRunning);
