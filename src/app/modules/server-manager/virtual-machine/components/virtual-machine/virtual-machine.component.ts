@@ -51,6 +51,9 @@ export class VirtualMachineComponent implements OnInit, OnDestroy {
   }
 
   refresh(silent = false): void {
+    if (this.loading)
+      return;
+
     if (!silent) {
       this.virtualMachine = undefined;
       this.ports = undefined;
