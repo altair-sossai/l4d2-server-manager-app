@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
-import { SuspectedPlayerDetailsComponent } from './modules/anti-cheat/suspected-player/components/suspected-player-details/suspected-player-details.component';
-import { SuspectedPlayersComponent } from './modules/anti-cheat/suspected-player/components/suspected-players/suspected-players.component';
 import { LockedScreenComponent } from './modules/auth/components/locked-screen/locked-screen.component';
 import { AuthGuard } from './modules/auth/guards/auth.guard';
 import { ServerComponent } from './modules/server-manager/server/components/server/server.component';
@@ -17,8 +15,6 @@ const routes: Routes = [
     children: [
       { path: 'virtual-machine', component: VirtualMachineComponent, canActivate: [AuthGuard] },
       { path: 'server/:port', component: ServerComponent, canActivate: [AuthGuard] },
-      { path: 'suspected-players', component: SuspectedPlayersComponent, canActivate: [AuthGuard] },
-      { path: 'suspected-players/:communityId/details', component: SuspectedPlayerDetailsComponent, canActivate: [AuthGuard] },
       { path: '', redirectTo: '/virtual-machine', pathMatch: 'full' }
     ]
   },

@@ -40,17 +40,10 @@ export class LockedScreenComponent implements OnInit {
 
     if (this.serversAccess)
       this.virtualMachine();
-
-    else if (this.antiCheatManagerAccess)
-      this.suspectedPlayers();
   }
 
   virtualMachine(): void {
     this.router.navigate(['/virtual-machine']);
-  }
-
-  suspectedPlayers(): void {
-    this.router.navigate(['/suspected-players']);
   }
 
   get serversAccess(): boolean {
@@ -58,12 +51,5 @@ export class LockedScreenComponent implements OnInit {
       return false;
 
     return this.me?.accessLevels.indexOf(AccessLevel.Servers) != -1;
-  }
-
-  get antiCheatManagerAccess(): boolean {
-    if (!this.me)
-      return false;
-
-    return this.me?.accessLevels.indexOf(AccessLevel.AntiCheatManager) != -1;
   }
 }

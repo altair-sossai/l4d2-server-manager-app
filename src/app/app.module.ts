@@ -1,5 +1,5 @@
 import { registerLocaleData } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import pt from '@angular/common/locales/pt';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -32,11 +32,6 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
-import { FailReasonPipe } from './modules/anti-cheat/suspected-player-file-fail/pipes/fail-reason.pipe';
-import { SuspectedPlayerDetailsComponent } from './modules/anti-cheat/suspected-player/components/suspected-player-details/suspected-player-details.component';
-import { SuspectedPlayerProcessDetailComponent } from './modules/anti-cheat/suspected-player/components/suspected-player-process-detail/suspected-player-process-detail.component';
-import { SuspectedPlayerComponent } from './modules/anti-cheat/suspected-player/components/suspected-player/suspected-player.component';
-import { SuspectedPlayersComponent } from './modules/anti-cheat/suspected-player/components/suspected-players/suspected-players.component';
 import { LockedScreenComponent } from './modules/auth/components/locked-screen/locked-screen.component';
 import { UserDetailComponent } from './modules/auth/users/components/user-detail/user-detail.component';
 import { PortDetailComponent } from './modules/server-manager/port/components/port-detail/port-detail.component';
@@ -66,12 +61,7 @@ registerLocaleData(pt);
     AppLayoutComponent,
     PortDetailComponent,
     UserDetailComponent,
-    ElapsedTimeComponent,
-    SuspectedPlayerComponent,
-    SuspectedPlayersComponent,
-    SuspectedPlayerDetailsComponent,
-    SuspectedPlayerProcessDetailComponent,
-    FailReasonPipe
+    ElapsedTimeComponent
   ],
   imports: [
     BrowserModule,

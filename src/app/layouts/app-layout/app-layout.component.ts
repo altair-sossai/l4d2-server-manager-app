@@ -23,10 +23,6 @@ export class AppLayoutComponent implements OnInit {
     return this.me?.accessLevels.indexOf(AccessLevel.Servers) != -1;
   }
 
-  get showSuspectedPlayersButton(): boolean {
-    return this.me?.accessLevels.indexOf(AccessLevel.AntiCheatManager) != -1;
-  }
-
   ngOnInit(): void {
     this.userService.me().subscribe(me => this.me = me);
   }
