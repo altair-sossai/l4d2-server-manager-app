@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { Observable } from 'rxjs';
 import { UserService } from 'src/app/modules/auth/users/services/user.service';
 import { User } from 'src/app/modules/auth/users/user';
 import { Port } from '../../../port/port';
@@ -99,15 +100,19 @@ export class VirtualMachineComponent implements OnInit, OnDestroy {
       return;
 
     this.loading = true;
-    this.virtualMachineService.powerOn().subscribe({
-      next: virtualMachine => {
-        if (action == 'power-on') {
-          this.refresh();
-          this.loading = false;
-          return;
-        }
 
-        this.runServer(virtualMachine);
+    const observable: Observable<any> = action === 'power-on'
+      ? this.virtualMachineService.powerOn()
+      : this.virtualMachineService.powerOnAndRunServer(this.command);
+
+    observable.subscribe({
+      next: (result: any) => {
+        this.loading = false;
+
+        if (result?.port)
+          this.goToServer(result?.port);
+        else
+          this.refresh();
       },
       error: () => {
         this.refresh();
@@ -131,28 +136,6 @@ export class VirtualMachineComponent implements OnInit, OnDestroy {
             this.loading = false;
           }
         });
-      }
-    });
-  }
-
-  runServer(virtualMachine: VirtualMachine): void {
-    this.portService.get(virtualMachine.ipAddress).subscribe({
-      next: ports => {
-        const port = ports.find(p => !p.isRunning);
-
-        if (!port) {
-          this.refresh();
-          this.loading = false;
-          return;
-        }
-
-        this.serverService.run(port.portNumber, this.command).subscribe(() => {
-          this.goToServer(port.portNumber);
-        });
-      },
-      error: () => {
-        this.refresh();
-        this.loading = false;
       }
     });
   }
