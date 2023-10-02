@@ -118,7 +118,8 @@
             <i nz-icon nzType="poweroff" nzTheme="outline"></i> Desligar servidor
         </button>
 
-        <button *ngIf="canOpenSlot()" nz-button nzType="primary" (click)="openSlot()" [nzLoading]="loading">
+        <button *ngIf="serverInfo && serverInfo.players >= serverInfo.maxPlayers && canOpenSlot()" nz-button nzType="primary"
+            (click)="openSlot()" [nzLoading]="loading">
             <i nz-icon nzType="user-add" nzTheme="outline"></i> Abrir um slot
         </button>
 
