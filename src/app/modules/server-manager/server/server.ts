@@ -1,10 +1,10 @@
-import { PortInfo } from "../virtual-machine/value-objects/port-info";
+import { PortStatus } from "../virtual-machine/enums/port-status.enum";
 
 export interface Server {
     ipAddress: string;
     port: number;
     isRunning: boolean;
-    portInfo: PortInfo;
+    portStatus: PortStatus;
     permissions: string[];
     startedBy: string;
     startedAt: Date;

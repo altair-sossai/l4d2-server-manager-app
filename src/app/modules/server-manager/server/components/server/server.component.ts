@@ -128,6 +128,20 @@ export class ServerComponent implements OnInit, OnDestroy {
     });
   }
 
+  openSlot(): void {
+    this.loading = true;
+    this.serverService.openSlot(this.port!).subscribe({
+      next: () => {
+        this.refresh();
+        this.loading = false;
+      },
+      error: () => {
+        this.refresh();
+        this.loading = false;
+      }
+    });
+  }
+
   public get fullIpAddress(): string {
     return `${this.server?.ipAddress}:${this.server?.port}`;
   }
@@ -157,5 +171,9 @@ export class ServerComponent implements OnInit, OnDestroy {
 
   canOpenPort(): boolean {
     return this.hasPermissions('open-port');
+  }
+
+  canOpenSlot(): boolean {
+    return this.hasPermissions('open-slot');
   }
 }

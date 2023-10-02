@@ -88,16 +88,8 @@
         <tr>
             <th>Acesso:</th>
             <td>
-                <nz-tag *ngIf="server.portInfo.status == PortStatus.Open && server.portInfo.rules == '*'"
-                    nzColor="green">
-                    {{server.portInfo.status | portStatus}}
-                </nz-tag>
-                <nz-tag *ngIf="server.portInfo.status == PortStatus.Open && server.portInfo.rules != '*'"
-                    nzColor="orange">
-                    {{server.portInfo.status | portStatus}} apenas para o(s) IP(s) dos jogadores
-                </nz-tag>
-                <nz-tag nzColor="red" *ngIf="server.portInfo.status == PortStatus.Close">
-                    {{server.portInfo.status | portStatus}}
+                <nz-tag [nzColor]="server.portStatus == PortStatus.Open ? 'green' : 'red'">
+                    {{server.portStatus | portStatus}}
                 </nz-tag>
             </td>
         </tr>
@@ -126,7 +118,12 @@
             <i nz-icon nzType="poweroff" nzTheme="outline"></i> Desligar servidor
         </button>
 
-        <button *ngIf="canOpenPort()" nz-button nzType="primary" (click)="openPort()" [nzLoading]="loading">
+        <button *ngIf="canOpenSlot()" nz-button nzType="primary" (click)="openSlot()" [nzLoading]="loading">
+            <i nz-icon nzType="user-add" nzTheme="outline"></i> Abrir um slot
+        </button>
+
+        <button *ngIf="server.portStatus == PortStatus.Close && canOpenPort()" nz-button nzType="primary"
+            (click)="openPort()" [nzLoading]="loading">
             <i nz-icon nzType="unlock" nzTheme="outline"></i> Abrir porta para todos
         </button>
 

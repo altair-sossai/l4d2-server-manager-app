@@ -38,4 +38,8 @@ export class ServerService {
     openPort(port: number): Observable<void> {
         return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/open-port`, {});
     }
+
+    openSlot(port: number): Observable<void> {
+        return this.http.put<void>(`${environment.apiUrl}/api/server/${port}/open-slot`, {});
+    }
 }
