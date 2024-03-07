@@ -2,14 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { Observable } from 'rxjs';
 import { UserService } from 'src/app/modules/auth/users/services/user.service';
 import { User } from 'src/app/modules/auth/users/user';
 import { Port } from '../../../port/port';
 import { PortService } from '../../../port/services/port.service';
 import { RunServerCommand } from '../../../server/commands/run-server.command';
-import { Campaign } from '../../../server/enums/campaign.enum';
-import { ServerService } from '../../../server/services/server.service';
 import { VirtualMachineService } from '../../services/virtual-machine.service';
 import { VirtualMachine } from '../../virtual-machine';
 
@@ -24,19 +21,15 @@ export class VirtualMachineComponent implements OnInit, OnDestroy {
   ports?: Port[];
   user?: User;
   loading = false;
-  action?: string;
 
   command: RunServerCommand = new RunServerCommand();
   refreshInterval: any;
-
-  Campaigns = Object.keys(Campaign).map(c => c as Campaign);
 
   constructor(
     private router: Router,
     private modalService: NzModalService,
     private message: NzMessageService,
     private virtualMachineService: VirtualMachineService,
-    private serverService: ServerService,
     private portService: PortService,
     private userService: UserService) {
   }
@@ -59,7 +52,6 @@ export class VirtualMachineComponent implements OnInit, OnDestroy {
       this.virtualMachine = undefined;
       this.ports = undefined;
       this.user = undefined;
-      this.action = undefined;
     }
 
     this.virtualMachineService.get().subscribe(virtualMachine => {
@@ -95,17 +87,10 @@ export class VirtualMachineComponent implements OnInit, OnDestroy {
     })
   };
 
-  powerOn(action?: string): void {
-    if (!action)
-      return;
-
+  powerOn(): void {
     this.loading = true;
 
-    const observable: Observable<any> = action === 'power-on'
-      ? this.virtualMachineService.powerOn()
-      : this.virtualMachineService.powerOnAndRunServer(this.command);
-
-    observable.subscribe({
+    this.virtualMachineService.powerOn().subscribe({
       next: (result: any) => {
         this.loading = false;
 

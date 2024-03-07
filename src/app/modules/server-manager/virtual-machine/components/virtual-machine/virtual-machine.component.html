@@ -22,35 +22,10 @@
         </tr>
     </table>
 
-    <p>O que você deseja fazer?</p>
-
-    <nz-radio-group [(ngModel)]="action">
-        <label nz-radio nzValue="power-on" [nzDisabled]="loading">
-            Apenas ligar a máquina
-        </label>
-        <label nz-radio nzValue="start-server" [nzDisabled]="loading">
-            Iniciar um servidor
-        </label>
-    </nz-radio-group>
-
-    <nz-form-item *ngIf="action && action != 'power-on'">
-        <nz-form-label nzRequired nzFor="campaign">Campanha</nz-form-label>
-        <nz-form-control [nzSpan]="24">
-            <nz-select [(ngModel)]="command.campaign" name="campaign" placeholder="Campanha" [nzDisabled]="loading">
-                <nz-option *ngFor="let campaign of Campaigns" [nzValue]="campaign" [nzLabel]="campaign | campaign">
-                </nz-option>
-            </nz-select>
-        </nz-form-control>
-    </nz-form-item>
-
-    <p *ngIf="action && action != 'power-on'">
-        <b>Atenção:</b> Após iniciar o servidor é necessário digitar <b>!match</b> e escolher a configuração desejada.
-    </p>
-
     <nz-divider></nz-divider>
 
     <div class="buttons">
-        <button nz-button nzType="primary" (click)="powerOn(action)" [nzLoading]="loading" [disabled]="!action">
+        <button nz-button nzType="primary" (click)="powerOn()" [nzLoading]="loading">
             <i nz-icon nzType="play-circle" nzTheme="outline"></i>
             {{ loading ? 'Aguarde...' : 'Iniciar' }}
         </button>
